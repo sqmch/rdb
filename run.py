@@ -22,5 +22,5 @@ def catch_all(path):
     """
 
     if app.debug:
-        return requests.get("http://localhost:8084/{}".format(path)).text
+        return requests.get("http://localhost:8081/{}".format(path)).text
     return render_template("index.html")
