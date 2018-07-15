@@ -4,6 +4,7 @@ import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default-dark.css'
 
+Vue.use(Router)
 Vue.use(VueMaterial)
 
 const routerOptions = [{
@@ -11,8 +12,12 @@ const routerOptions = [{
   component: 'Home'
 },
 {
-  path: '/about',
-  component: 'About'
+  path: '/misc',
+  component: 'Misc'
+},
+{
+  path: '/stats',
+  component: 'Stats'
 }
 ]
 
@@ -23,7 +28,6 @@ const routes = routerOptions.map(route => {
       import(`@/components/${route.component}.vue`)
   }
 })
-Vue.use(Router)
 
 export default new Router({
   routes,
