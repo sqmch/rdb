@@ -1,6 +1,6 @@
 # make a virtual env and install dependencies
 
-mkdir backend
+mkdir backend (in project folder root)
 cd backend
 
 python -m venv venv
