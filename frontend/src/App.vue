@@ -26,9 +26,7 @@
           <md-tabs md-sync-route class="md-primary ">
             <md-tab  id="tab-home" md-label="Home" to="/">
               <div class="md-layout-item">
-                 <md-content class="md-scrollbar">
                 <router-view/>
-                 </md-content>
               </div>
             </md-tab>
             <md-tab id="tab-misc" md-label="Misc" to="/misc">

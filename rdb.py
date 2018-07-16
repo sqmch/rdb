@@ -8,11 +8,7 @@ import requests
 class Rdb:
     # pulls data from praw and serves to vue
     def __init__(self):
-        self.reddit = praw.Reddit(username="sqaksqak",
-                                  password="teretere",
-                                  client_id="Qh9l7kzpajHMag",
-                                  client_secret="AclHBC-LKzTWzhVVYM58D5rWOyk",
-                                  user_agent="rdb - testing")
+        self.reddit = praw.Reddit('bot1', user_agent="rdb - testing")
 
     def get_submissions(self, subname='python', sortmode='top'):
         # input: subreddit name and sort mode
