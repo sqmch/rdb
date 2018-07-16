@@ -1,10 +1,9 @@
 <template>
-  <div id="app" class="md-layout tes">
+  <div id="app" class="md-layout">
     <div class="md-layout-item">
     <md-app md-waterfall md-mode="fixed">
-      <md-app-toolbar class="md-large md-dense md-primary">
+      <md-app-toolbar class=" md-dense md-primary">
         <div class="md-toolbar-row ">
-
           <!-- MENU ICON ROW-->
           <div class="md-toolbar-section-start">
             <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
@@ -14,7 +13,6 @@
             <span class="md-title">rdb</span>
           </div>
           <!-- /MENU ICON ROW-->
-
           <!-- THREE-BUTTON ICON ON THE RIGHT-->
           <div class="md-toolbar-section-end">
             <md-button class="md-icon-button">
@@ -27,9 +25,10 @@
         <div  class="md-layout-item">
           <md-tabs md-sync-route class="md-primary ">
             <md-tab  id="tab-home" md-label="Home" to="/">
-
-              <router-view/>
               <div class="md-layout-item">
+                 <md-content class="md-scrollbar">
+                <router-view/>
+                 </md-content>
               </div>
             </md-tab>
             <md-tab id="tab-misc" md-label="Misc" to="/misc">
