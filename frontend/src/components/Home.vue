@@ -24,7 +24,7 @@
     <!-- DATA TABLE -->
     <div class="md-layout-item">
 
-      <md-table v-model="people" md-card @md-selected="onSelect">
+      <md-table v-model="submissiondata" md-card @md-selected="onSelect">
         <md-table-toolbar>
           <h1 class="md-title">Submissions</h1>
         </md-table-toolbar>
@@ -38,17 +38,11 @@
             </md-button>
           </div>
         </md-table-toolbar>
-
-        <md-table-row slot="md-table-row" slot-scope="{ item }" :md-disabled="item.name.includes('Stave')" md-selectable="multiple" md-auto-select>
-          <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
-          <md-table-cell md-label="Email" md-sort-by="email">{{ item.email }}</md-table-cell>
+        {{ selected }}
+        <md-table-row slot="md-table-row" slot-scope="{ item }" md-selectable="multiple" md-auto-select>
+          <md-table-cell md-label="Submission" md-sort-by="email">{{ item.title }}</md-table-cell>
         </md-table-row>
       </md-table>
-    </div>
-    <div>
-      {{ selected }}
-      <p>from flask:</p>
-      {{ submissiondata }}
     </div>
   </div>
 </template>
@@ -82,129 +76,7 @@ export default {
     submissiondata: {},
     selected: {},
     selectedCountry: null,
-    selectedEmployee: null,
-    people: [
-      {
-        name: 'Shawna Dubbin',
-        email: 'sdubbin0@geocities.com',
-        gender: 'Male',
-        title: 'Assistant Media Planner'
-      },
-      {
-        name: 'Odette Demageard',
-        email: 'odemageard1@spotify.com',
-        gender: 'Female',
-        title: 'Account Coordinator'
-      },
-      {
-        name: 'Lonnie Izkovitz',
-        email: 'lizkovitz3@youtu.be',
-        gender: 'Female',
-        title: 'Operator'
-      },
-      {
-        name: 'Thatcher Stave',
-        email: 'tstave4@reference.com',
-        gender: 'Male',
-        title: 'Software Test Engineer III'
-      },
-      {
-        name: 'Clarinda Marieton',
-        email: 'cmarietonh@theatlantic.com',
-        gender: 'Female',
-        title: 'Paralegal'
-      },
-      {
-        name: 'Shawna Dubbin',
-        email: 'sdubbin0@geocities.com',
-        gender: 'Male',
-        title: 'Assistant Media Planner'
-      },
-      {
-        name: 'Odette Demageard',
-        email: 'odemageard1@spotify.com',
-        gender: 'Female',
-        title: 'Account Coordinator'
-      },
-      {
-        name: 'Lonnie Izkovitz',
-        email: 'lizkovitz3@youtu.be',
-        gender: 'Female',
-        title: 'Operator'
-      },
-      {
-        name: 'Thatcher Stave',
-        email: 'tstave4@reference.com',
-        gender: 'Male',
-        title: 'Software Test Engineer III'
-      },
-      {
-        name: 'Clarinda Marieton',
-        email: 'cmarietonh@theatlantic.com',
-        gender: 'Female',
-        title: 'Paralegal'
-      },
-      {
-        name: 'Shawna Dubbin',
-        email: 'sdubbin0@geocities.com',
-        gender: 'Male',
-        title: 'Assistant Media Planner'
-      },
-      {
-        name: 'Odette Demageard',
-        email: 'odemageard1@spotify.com',
-        gender: 'Female',
-        title: 'Account Coordinator'
-      },
-      {
-        name: 'Lonnie Izkovitz',
-        email: 'lizkovitz3@youtu.be',
-        gender: 'Female',
-        title: 'Operator'
-      },
-      {
-        name: 'Thatcher Stave',
-        email: 'tstave4@reference.com',
-        gender: 'Male',
-        title: 'Software Test Engineer III'
-      },
-      {
-        name: 'Clarinda Marieton',
-        email: 'cmarietonh@theatlantic.com',
-        gender: 'Female',
-        title: 'Paralegal'
-      },
-      {
-        name: 'Shawna Dubbin',
-        email: 'sdubbin0@geocities.com',
-        gender: 'Male',
-        title: 'Assistant Media Planner'
-      },
-      {
-        name: 'Odette Demageard',
-        email: 'odemageard1@spotify.com',
-        gender: 'Female',
-        title: 'Account Coordinator'
-      },
-      {
-        name: 'Lonnie Izkovitz',
-        email: 'lizkovitz3@youtu.be',
-        gender: 'Female',
-        title: 'Operator'
-      },
-      {
-        name: 'Thatcher Stave',
-        email: 'tstave4@reference.com',
-        gender: 'Male',
-        title: 'Software Test Engineer III'
-      },
-      {
-        name: 'Clarinda Marieton',
-        email: 'cmarietonh@theatlantic.com',
-        gender: 'Female',
-        title: 'Paralegal'
-      }
-    ]
+    selectedEmployee: null
   }),
   methods: {
     onSelect (item) {
@@ -215,8 +87,9 @@ export default {
       axios
         .get(path)
         .then(response => {
-          this.submissiondata = response.data
-          console.log(response.data)
+          var dataobj = JSON.parse(response.data)
+          this.submissiondata = dataobj
+          console.log(dataobj)
         })
         .catch(error => {
           console.log(error)
