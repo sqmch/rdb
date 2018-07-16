@@ -46,4 +46,4 @@ username=YOURUSERNAME
 
 - update praw.ini and save
 
-- praw will now read auth information from the ini file, keep in mind the [name] has to match the argument passed
+- praw will now read auth information from the ini file, keep in mind the name in the brackets ('bot1' in this case) has to match the argument passed to praw.Reddit
