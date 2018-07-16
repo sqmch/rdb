@@ -13,7 +13,7 @@ mkdir backend (in project folder root)
 cd backend
 python -m venv venv
 venv/scripts/activate
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 ### running flask and node
