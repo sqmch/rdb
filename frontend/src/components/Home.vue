@@ -10,6 +10,8 @@
       </div>
       <md-button v-on:click="getSubs()" class="md-raised md-primary">Search</md-button>
     </div>
+
+    <!-- SORT MODE RADIO BUTTONS -->
     <div class="md-layout">
       <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio">Top</md-radio></div>
       <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio1">Hot</md-radio></div>
@@ -17,11 +19,11 @@
       <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio3">Rising</md-radio></div>
       <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio4">Controversial</md-radio></div>
     </div>
-    <!-- PROGRESS BAR -->
 
-      <div class="md-layout-item">
-        <md-progress-bar v-visible="isLoading" md-mode="query"></md-progress-bar>
-      </div>
+    <!-- PROGRESS BAR -->
+    <div class="md-layout-item">
+      <md-progress-bar v-visible="isLoading" md-mode="query"></md-progress-bar>
+    </div>
 
     <!-- DATA TABLE -->
     <div class="md-layout-item">
@@ -30,12 +32,15 @@
           md-label="Hello! Let's get started..."
           :md-description="'Enter a subreddit name, pick your sorting preference and press Search to load submissions.'">
         </md-table-empty-state>
-        <!-- TABLE TITLE TOGGLE -->
-          <md-table-toolbar md-alignment-center>
-            <transition name="fade">
-            <h3 v-if="titleVisible" class="md-title">Submissions</h3>
-            </transition>
-          </md-table-toolbar>
+
+        <!-- TITLE TOGGLE -->
+        <md-table-toolbar md-alignment-center>
+          <transition name="fade">
+          <h2 v-if="titleVisible" class="md-title">Submissions</h2>
+          </transition>
+        </md-table-toolbar>
+
+        <!-- SELECTED ITEM COUNTER BARS -->
         <md-table-toolbar slot="md-table-alternate-header" slot-scope="{ count }">
           <div class="md-toolbar-section-start">{{ getAlternateLabel(count) }}</div>
           <div class="md-toolbar-section-end">
@@ -43,11 +48,13 @@
               <md-icon>delete</md-icon>
             </md-button>
           </div>
-
         </md-table-toolbar>
+
+        <!-- TABLE ROWS -->
         <md-table-row slot="md-table-row" slot-scope="{ item }" md-selectable="multiple" md-auto-select>
-          <md-table-cell md-label="Submission" md-sort-by="email">{{ item.title }}</md-table-cell>
+          <md-table-cell md-label="Title">{{ item.title }}</md-table-cell>
         </md-table-row>
+
       </md-table>
     </div>
   </div>
@@ -59,7 +66,7 @@ small {
 }
 .fade-enter-active,
 .fade-leave-active {
-	transition: opacity 0.5s;
+	transition: opacity 2.5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
 	opacity: 0;
