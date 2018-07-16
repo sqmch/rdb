@@ -9,7 +9,7 @@
 
         </md-field>
       </div>
-      <md-button class="md-raised md-primary">Search</md-button>
+      <md-button v-on:click="getSubs()" class="md-raised md-primary">Search</md-button>
     </div>
       <div class="md-layout">
         <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio">Top</md-radio></div>
@@ -26,7 +26,7 @@
 
       <md-table v-model="people" md-card @md-selected="onSelect">
         <md-table-toolbar>
-          <h1 class="md-title">With auto select and alternate headers</h1>
+          <h1 class="md-title">Submissions</h1>
         </md-table-toolbar>
 
         <md-table-toolbar slot="md-table-alternate-header" slot-scope="{ count }">
@@ -44,6 +44,11 @@
           <md-table-cell md-label="Email" md-sort-by="email">{{ item.email }}</md-table-cell>
         </md-table-row>
       </md-table>
+    </div>
+    <div>
+      {{ selected }}
+      <p>from flask:</p>
+      {{ submissiondata }}
     </div>
   </div>
 </template>
@@ -204,20 +209,19 @@ export default {
   methods: {
     onSelect (item) {
       this.selected = item
+    },
+    getSubs () {
+      const path = 'http://localhost:5000/api/submissions'
+      axios
+        .get(path)
+        .then(response => {
+          this.submissiondata = response.data
+          console.log(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
-
-  },
-  mounted () {
-    const path = 'http://localhost:5000/api/submissions'
-    axios
-      .get(path)
-      .then(response => {
-        this.submissiondata = response.data
-        console.log(response.data)
-      })
-      .catch(error => {
-        console.log(error)
-      })
   }
 }
 
