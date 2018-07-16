@@ -63,8 +63,6 @@
 </template>
 
 <script>
-
-import Bar from './components/Bar.vue'
 import Misc from './components/Misc.vue'
 import Home from './components/Home.vue'
 
@@ -75,7 +73,6 @@ export default {
     selected: {}
   }),
   components: {
-    Bar,
     Misc,
     Home
   }

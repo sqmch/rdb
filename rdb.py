@@ -24,7 +24,7 @@ class Rdb:
         elif sortmode == 'controversial':
             subreddit = self.reddit.subreddit(subname).controversial()
         else:
-            return 'bad sortmode passed'
+            return {}
 
         index = 0
         onepacket = {}
