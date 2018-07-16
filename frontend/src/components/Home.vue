@@ -45,11 +45,6 @@
         </md-table-row>
       </md-table>
     </div>
-    <div>
-      {{ selected }}
-      <p>from flask:</p>
-      {{ submissiondata }}
-    </div>
   </div>
 </template>
 
