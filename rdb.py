@@ -1,4 +1,4 @@
-# get reddit data through praw and serve it as an api
+# get reddit data through praw and serve it as json
 
 import json
 import praw
