@@ -27,7 +27,7 @@
         <div  class="md-layout-item">
           <md-tabs md-sync-route class="md-primary ">
             <md-tab  id="tab-home" md-label="Home" to="/">
-              <div class="md-layout-item md-size-25">
+              <div md-scrollbar class="md-layout-item md-size-25">
                 <md-field>
                   <label>Enter subreddit name...</label>
                   <md-input v-model="type"></md-input>
@@ -54,22 +54,12 @@
         <md-list>
           <md-list-item>
             <md-icon>move_to_inbox</md-icon>
-            <span class="md-list-item-text">Inbox</span>
+            <span class="md-list-item-text">Sign in</span>
           </md-list-item>
 
           <md-list-item>
             <md-icon>send</md-icon>
-            <span class="md-list-item-text">Sent Mail</span>
-          </md-list-item>
-
-          <md-list-item>
-            <md-icon>delete</md-icon>
-            <span class="md-list-item-text">Trash</span>
-          </md-list-item>
-
-          <md-list-item>
-            <md-icon>error</md-icon>
-            <span class="md-list-item-text">Spam</span>
+            <span class="md-list-item-text">About</span>
           </md-list-item>
         </md-list>
       </md-app-drawer>
