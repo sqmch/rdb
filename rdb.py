@@ -6,7 +6,7 @@ import requests
 
 
 class Rdb:
-    # pulls data from praw and serves to vue
+    # pulls data from praw (100 submissions from specified subreddit/sort mode) and serves to vue
     def __init__(self):
         self.reddit = praw.Reddit('bot1', user_agent="rdb - testing")
 
