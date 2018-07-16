@@ -40,14 +40,3 @@ class Rdb:
         json_sub_data = json.dumps(data)
 
         return json_sub_data
-
-
-"""
-def main():
-    rdb = Rdb()
-    print(rdb.get_submissions('python', 'top'))
-
-
-if __name__ == '__main__':
-    main()
-    """
