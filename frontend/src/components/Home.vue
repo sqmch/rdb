@@ -9,7 +9,10 @@
 
         </md-field>
       </div>
-      <md-button v-on:click="getSubs()" class="md-raised md-primary">Search</md-button>
+      <md-button v-on:click="getSubs()" class="md-raised md-primary">
+        Search
+      </md-button>
+
     </div>
       <div class="md-layout">
         <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio">Top</md-radio></div>
@@ -17,6 +20,9 @@
         <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio2">New</md-radio></div>
         <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio3">Rising</md-radio></div>
         <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio4">Controversial</md-radio></div>
+      </div>
+      <div class="md-layout-item" v-if="isLoading">
+        <md-progress-bar md-mode="indeterminate"></md-progress-bar>
       </div>
     <!-- DROPDOWNS -->
 
@@ -28,7 +34,6 @@
         <md-table-toolbar>
           <h1 class="md-title">Submissions</h1>
         </md-table-toolbar>
-
         <md-table-toolbar slot="md-table-alternate-header" slot-scope="{ count }">
           <div class="md-toolbar-section-start">{{ getAlternateLabel(count) }}</div>
 
@@ -38,7 +43,6 @@
             </md-button>
           </div>
         </md-table-toolbar>
-        {{ selected }}
         <md-table-row slot="md-table-row" slot-scope="{ item }" md-selectable="multiple" md-auto-select>
           <md-table-cell md-label="Submission" md-sort-by="email">{{ item.title }}</md-table-cell>
         </md-table-row>
@@ -50,6 +54,9 @@
 <style lang="scss" scoped>
 small {
 	display: block;
+}
+.md-progress-spinner {
+	margin: 24px;
 }
 .md-radio {
 	display: flex;
@@ -72,6 +79,7 @@ import axios from 'axios'
 export default {
   name: 'Home',
   data: () => ({
+    isLoading: false,
     radio: true,
     submissiondata: {},
     selected: {},
@@ -83,6 +91,7 @@ export default {
       this.selected = item
     },
     getSubs () {
+      this.isLoading = true
       const path = 'http://localhost:5000/api/submissions'
       axios
         .get(path)
@@ -90,9 +99,11 @@ export default {
           var dataobj = JSON.parse(response.data)
           this.submissiondata = dataobj
           console.log(dataobj)
+          this.isLoading = false
         })
         .catch(error => {
           console.log(error)
+          this.isLoading = false
         })
     }
   }
