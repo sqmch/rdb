@@ -27,13 +27,7 @@
         <div  class="md-layout-item">
           <md-tabs md-sync-route class="md-primary ">
             <md-tab  id="tab-home" md-label="Home" to="/">
-              <div md-scrollbar class="md-layout-item md-size-25">
-                <md-field>
-                  <label>Enter subreddit name...</label>
-                  <md-input v-model="type"></md-input>
-                  <md-button class="md-raised md-primary">Search</md-button>
-                </md-field>
-              </div>
+
               <router-view/>
               <div class="md-layout-item">
               </div>
