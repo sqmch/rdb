@@ -1,8 +1,9 @@
 # rdb - pull data from reddit
 
-## backend: flask, praw
+- backend: flask, praw
+- frontend: vue.js with vue-material
 
-## frontend: vue.js with vue-material
+#
 
 ### make a virtual env and install dependencies
 
