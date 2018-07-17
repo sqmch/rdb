@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="md-layout md-gutter">
-      <div class="md-layout-item">
+      <div class="md-layout-item md-medium-size-33 md-small-size-50 md-xsmall-size-100">
         <div class="md-layout-item">
           <!-- 1/3 card -->
           <md-card>
@@ -13,12 +13,12 @@
                 <span class="md-error">Enter correct subreddit name</span>
               </md-field>
               <!-- SORT MODE RADIO BUTTONS -->
-              <div class="md-layout">
-                <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="top" value="radio-top">Top</md-radio></div>
-                <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="hot" value="radio-hot">Hot</md-radio></div>
-                <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="new" value="radio-new">New</md-radio></div>
-                <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="gilded" value="radio-rising">Gilded</md-radio></div>
-                <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="controversial" value="radio-controversial">Controversial</md-radio></div>
+              <div class="md-layout md-medium-size-33 md-small-size-50 md-xsmall-size-100">
+                <md-radio v-model="radio" id="top" value="radio-top">Top</md-radio>
+                <md-radio v-model="radio" id="hot" value="radio-hot">Hot</md-radio>
+                <md-radio v-model="radio" id="new" value="radio-new">New</md-radio>
+                <md-radio v-model="radio" id="gilded" value="radio-rising">Gilded</md-radio>
+                <md-radio v-model="radio" id="controversial" value="radio-controversial">Controversial</md-radio>
               </div>
             </md-card-content>
             <!-- SEARCH BUTTON -->
@@ -31,8 +31,6 @@
         </div>
       </div>
       <!-- 2/3 and 3/3 cards -->
-      <div class="md-layout-item"></div>
-      <div class="md-layout-item"></div>
     </div>
     <!-- PROGRESS BAR -->
       <div class="md-layout-item prbar">

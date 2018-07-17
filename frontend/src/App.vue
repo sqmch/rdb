@@ -1,8 +1,8 @@
 <template>
   <div id="app" class="md-layout">
-    <div class="md-layout-item">
-    <md-app md-waterfall md-mode="fixed">
-      <md-app-toolbar class=" md-dense md-primary">
+    <div class="page-container md-layout-item">
+    <md-app md-mode="fixed">
+      <md-app-toolbar class="md-primary">
         <div class="md-toolbar-row ">
           <!-- MENU ICON ROW-->
           <div class="md-toolbar-section-start">
@@ -90,5 +90,17 @@ export default {
 	text-align: center;
 	color: #2c3e50;
 	margin-top: 0px;
+}
+</style>
+<style scoped>
+.md-app {
+	max-height: 400px;
+	border: 1px solid rgba(#000, 0.12);
+}
+
+// Demo purposes only
+.md-drawer {
+	width: 230px;
+	max-width: calc(100vw - 125px);
 }
 </style>
