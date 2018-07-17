@@ -1,12 +1,12 @@
 <template>
   <div>
-    <!-- SUBREDDIT SEARCH INPUT -->
     <div class="md-layout md-gutter">
       <div class="md-layout-item">
         <div class="md-layout-item">
-          <!-- LEFT SEARCH CARD -->
+          <!-- 1/3 card -->
           <md-card>
             <md-card-content>
+              <!-- SUBREDDIT SEARCH INPUT -->
               <md-field :class="messageClass">
                 <label>Enter subreddit name...</label>
                 <md-input required v-model="type"></md-input>
@@ -21,16 +21,16 @@
                 <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="controversial" value="radio-controversial">Controversial</md-radio></div>
               </div>
             </md-card-content>
+            <!-- SEARCH BUTTON -->
             <md-card-actions md-alignment="left">
               <div class="searchbut">
                 <md-button v-on:click="getSubs()" class="md-raised md-primary" :disabled="(radio == true)">Scan</md-button>
               </div>
             </md-card-actions>
           </md-card>
-          <!-- PROGRESS BAR -->
-
         </div>
       </div>
+      <!-- 2/3 and 3/3 cards -->
       <div class="md-layout-item"></div>
       <div class="md-layout-item"></div>
     </div>
