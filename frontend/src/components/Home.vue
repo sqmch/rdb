@@ -36,7 +36,7 @@
         <!-- TITLE TOGGLE -->
         <md-table-toolbar md-alignment-center>
           <transition name="fade">
-          <h2 v-if="titleVisible" class="md-title">Submissions</h2>
+            <h2 v-if="titleVisible" class="md-title">Submissions</h2>
           </transition>
         </md-table-toolbar>
 
@@ -51,22 +51,22 @@
         </md-table-toolbar>
 
         <!-- TABLE ROWS -->
-        <md-table-row slot="md-table-row" slot-scope="{ item }" md-selectable="multiple" md-auto-select>
+
+        <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }" md-selectable="multiple" md-auto-select>
           <md-table-cell md-label="Title">{{ item.title }}</md-table-cell>
         </md-table-row>
-
       </md-table>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-small {
-	display: block;
+.tabrow {
+	text-align: left;
 }
 .fade-enter-active,
 .fade-leave-active {
-	transition: opacity 2.5s;
+	transition: opacity 2.5s ease-out;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
 	opacity: 0;
@@ -83,6 +83,15 @@ small {
 .md-table + .md-table {
 	margin-top: 16px;
 }
+.md-app {
+	border: 1px solid rgba(#000, 0.12);
+}
+
+// Demo purposes only
+.md-drawer {
+	width: 230px;
+	max-width: calc(100vw - 125px);
+}
 </style>
 
 <script>
@@ -97,7 +106,8 @@ export default {
     submissiondata: {},
     selected: {},
     selectedCountry: null,
-    selectedEmployee: null
+    selectedEmployee: null,
+    menuVisible: false
   }),
   methods: {
     onSelect (item) {

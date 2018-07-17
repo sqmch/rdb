@@ -10,7 +10,7 @@ class Rdb:
     def __init__(self):
         self.reddit = praw.Reddit('bot1', user_agent="rdb - testing")
 
-    def get_submissions(self, subname='python', sortmode='top'):
+    def get_submissions(self, subname='programming', sortmode='top'):
         # input: subreddit name and sort mode
         # output: json table of subreddit submission data
         if sortmode == 'top':

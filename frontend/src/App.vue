@@ -83,7 +83,8 @@ export default {
 <style lang="scss">
 #app {
 	height: 100vh;
-	font-family: "Avenir", Helvetica, Arial, sans-serif;
+	font-family: Roboto, sans-serif;
+	//font-family: "Avenir", Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
