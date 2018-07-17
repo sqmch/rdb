@@ -22,7 +22,7 @@
           <!-- /THREE-BUTTON ICON ON THE RIGHT-->
         </div>
         <!-- TABS-->
-        <div  class="md-layout-item">
+        <div class="md-layout-item">
           <md-tabs md-sync-route class="md-primary ">
             <md-tab  id="tab-home" md-label="Home" to="/">
               <div class="md-layout-item">

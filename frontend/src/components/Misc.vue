@@ -1,7 +1,7 @@
 <template>
-  <div class="page-container">
-    <md-list>
-      <md-list-item>
+  <div class="page-container md-layout-item">
+    <md-list class="md-layout md-size-50">
+      <md-list-item class="md-layout">
         <md-icon>move_to_inbox</md-icon>
         <span class="md-list-item-text">Inbox</span>
       </md-list-item>

@@ -2,24 +2,26 @@
   <div>
     <!-- SUBREDDIT SEARCH INPUT -->
     <div class="md-layout">
-      <div class="md-size-25">
-        <md-field>
+      <div class="md-size-50">
+        <md-field :class="messageClass">
           <label>Enter subreddit name...</label>
-          <md-input v-model="type"></md-input>
+          <md-input required v-model="type"></md-input>
+          <span class="md-error">Enter correct subreddit name</span>
         </md-field>
       </div>
-      <md-button v-on:click="getSubs()" class="md-raised md-primary" :disabled="radioSel">Search</md-button>
+      <div class="searchbut">
+        <md-button v-on:click="getSubs()" class="md-raised md-primary" :disabled="(radio == true)">Search</md-button>
+      </div>
     </div>
 
     <!-- SORT MODE RADIO BUTTONS -->
     <div class="md-layout">
-      <div v-on:click="radioSelected()" class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio">Top</md-radio></div>
-      <div v-on:click="radioSelected()" class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio1">Hot</md-radio></div>
-      <div v-on:click="radioSelected()" class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio2">New</md-radio></div>
-      <div v-on:click="radioSelected()" class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio3">Rising</md-radio></div>
-      <div v-on:click="radioSelected()" class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio4">Controversial</md-radio></div>
+      <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="top" value="radio-top">Top</md-radio></div>
+      <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="hot" value="radio-hot">Hot</md-radio></div>
+      <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="new" value="radio-new">New</md-radio></div>
+      <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="rising" value="radio-rising">Rising</md-radio></div>
+      <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="controversial" value="radio-controversial">Controversial</md-radio></div>
     </div>
-
     <!-- PROGRESS BAR -->
     <div class="md-layout-item">
       <md-progress-bar v-visible="isLoading" md-mode="query"></md-progress-bar>
@@ -28,15 +30,13 @@
     <!-- DATA TABLE -->
     <div class="md-layout-item">
       <md-table md-card v-model="submissiondata" @md-selected="onSelect">
-        <md-table-empty-state
-          md-label="Hello! Let's get started..."
-          :md-description="'Enter a subreddit name, pick your sorting preference and press Search to load submissions.'">
+        <md-table-empty-state md-label="Hello! Let's get started..."
+                              md-description="Choose name. Choose sorting type. Hit search." >
         </md-table-empty-state>
 
         <!-- TITLE TOGGLE -->
-        <md-table-toolbar md-alignment-center>
-          <transition name="fade">
-            <h2 v-if="titleVisible" class="md-title">Submissions</h2>
+        <md-table-toolbar>
+          <transition name="fade"><h2 v-if="titleVisible" class="md-title">Submissions</h2>
           </transition>
         </md-table-toolbar>
 
@@ -61,6 +61,9 @@
 </template>
 
 <style lang="scss" scoped>
+.searchbut {
+	margin-left: 20px;
+}
 .tabrow {
 	text-align: left;
 }
@@ -100,15 +103,14 @@ import axios from 'axios'
 export default {
   name: 'Home',
   data: () => ({
+    required: null,
     isLoading: false,
     titleVisible: false,
-    radioSel: true,
     radio: true,
     submissiondata: {},
     selected: {},
-    selectedCountry: null,
-    selectedEmployee: null,
-    menuVisible: false
+    menuVisible: false,
+    hasMessages: false
   }),
   methods: {
     onSelect (item) {
@@ -122,9 +124,6 @@ export default {
       }
 
       return `${count} submission${plural} selected`
-    },
-    radioSelected () {
-      this.radioSel = false
     },
     getSubs () {
       this.isLoading = true
@@ -143,6 +142,13 @@ export default {
           this.isLoading = false
           this.titleVisible = true
         })
+    }
+  },
+  computed: {
+    messageClass () {
+      return {
+        'md-invalid': this.hasMessages
+      }
     }
   }
 }
