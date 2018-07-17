@@ -17,7 +17,7 @@
                 <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="top" value="radio-top">Top</md-radio></div>
                 <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="hot" value="radio-hot">Hot</md-radio></div>
                 <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="new" value="radio-new">New</md-radio></div>
-                <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="rising" value="radio-rising">Rising</md-radio></div>
+                <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="gilded" value="radio-rising">Gilded</md-radio></div>
                 <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="controversial" value="radio-controversial">Controversial</md-radio></div>
               </div>
             </md-card-content>
