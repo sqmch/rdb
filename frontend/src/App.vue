@@ -21,22 +21,29 @@
           </div>
           <!-- /THREE-BUTTON ICON ON THE RIGHT-->
         </div>
-        <!-- TABS-->
+
+        <!-- TABS ----------------------------- -->
         <div class="md-layout-item">
           <md-tabs md-sync-route class="md-primary ">
+
+            <!-- HOME-->
             <md-tab  id="tab-home" md-label="Home" to="/">
               <div class="md-layout-item">
                 <router-view/>
               </div>
             </md-tab>
+
+            <!-- MISC-->
             <md-tab id="tab-misc" md-label="Misc" to="/misc">
               <div class="md-layout-item">
                 <router-view/>
               </div>
             </md-tab>
+
           </md-tabs>
         </div>
-        <!-- /TABS-->
+        <!-- /TABS ---------------------------- -->
+
       </md-app-toolbar>
       <!-- SLIDING MENU-->
       <md-app-drawer :md-active.sync="menuVisible">
@@ -69,8 +76,7 @@ import Home from './components/Home.vue'
 export default {
   name: 'App',
   data: () => ({
-    menuVisible: false,
-    selected: {}
+    menuVisible: false
   }),
   components: {
     Misc,
@@ -88,7 +94,6 @@ export default {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
-	color: #2c3e50;
 	margin-top: 0px;
 }
 </style>

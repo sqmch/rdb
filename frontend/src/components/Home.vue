@@ -28,12 +28,9 @@
               </div>
             </md-card-actions>
           </md-card>
-          <md-content v-for="s in selected">
-            {{ s }}
-          </md-content>
+          {{ selected }}
         </div>
       </div>
-      <!-- 2/3 and 3/3 cards -->
     </div>
     <!-- PROGRESS BAR -->
       <div class="md-layout-item prbar">
@@ -121,7 +118,7 @@ export default {
     titleVisible: false,
     radio: true,
     submissiondata: {},
-    selected: null,
+    selected: {},
     menuVisible: false,
     hasMessages: false
   }),
@@ -155,6 +152,9 @@ export default {
           this.isLoading = false
           this.titleVisible = true
         })
+    },
+    selectSubs () {
+
     }
   },
   computed: {
