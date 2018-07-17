@@ -1,31 +1,43 @@
 <template>
   <div>
     <!-- SUBREDDIT SEARCH INPUT -->
-    <div class="md-layout">
-      <div class="md-size-50">
-        <md-field :class="messageClass">
-          <label>Enter subreddit name...</label>
-          <md-input required v-model="type"></md-input>
-          <span class="md-error">Enter correct subreddit name</span>
-        </md-field>
-      </div>
-      <div class="searchbut">
-        <md-button v-on:click="getSubs()" class="md-raised md-primary" :disabled="(radio == true)">Search</md-button>
-      </div>
-    </div>
+    <div class="md-layout md-gutter">
+      <div class="md-layout-item">
+        <div class="md-layout-item">
+          <!-- LEFT SEARCH CARD -->
+          <md-card>
+            <md-card-content>
+              <md-field :class="messageClass">
+                <label>Enter subreddit name...</label>
+                <md-input required v-model="type"></md-input>
+                <span class="md-error">Enter correct subreddit name</span>
+              </md-field>
+              <!-- SORT MODE RADIO BUTTONS -->
+              <div class="md-layout">
+                <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="top" value="radio-top">Top</md-radio></div>
+                <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="hot" value="radio-hot">Hot</md-radio></div>
+                <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="new" value="radio-new">New</md-radio></div>
+                <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="rising" value="radio-rising">Rising</md-radio></div>
+                <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="controversial" value="radio-controversial">Controversial</md-radio></div>
+              </div>
+            </md-card-content>
+            <md-card-actions md-alignment="left">
+              <div class="searchbut">
+                <md-button v-on:click="getSubs()" class="md-raised md-primary" :disabled="(radio == true)">Scan</md-button>
+              </div>
+            </md-card-actions>
+          </md-card>
+          <!-- PROGRESS BAR -->
 
-    <!-- SORT MODE RADIO BUTTONS -->
-    <div class="md-layout">
-      <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="top" value="radio-top">Top</md-radio></div>
-      <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="hot" value="radio-hot">Hot</md-radio></div>
-      <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="new" value="radio-new">New</md-radio></div>
-      <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="rising" value="radio-rising">Rising</md-radio></div>
-      <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" id="controversial" value="radio-controversial">Controversial</md-radio></div>
+        </div>
+      </div>
+      <div class="md-layout-item"></div>
+      <div class="md-layout-item"></div>
     </div>
     <!-- PROGRESS BAR -->
-    <div class="md-layout-item">
-      <md-progress-bar v-visible="isLoading" md-mode="query"></md-progress-bar>
-    </div>
+      <div class="md-layout-item prbar">
+        <md-progress-bar v-visible="isLoading" md-mode="query"></md-progress-bar>
+      </div>
 
     <!-- DATA TABLE -->
     <div class="md-layout-item">
@@ -61,15 +73,18 @@
 </template>
 
 <style lang="scss" scoped>
+.prbar {
+	margin: 12px;
+}
 .searchbut {
-	margin-left: 20px;
+	text-align: left;
 }
 .tabrow {
 	text-align: left;
 }
 .fade-enter-active,
 .fade-leave-active {
-	transition: opacity 2.5s ease-out;
+	transition: opacity 1.5s ease-out;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
 	opacity: 0;
@@ -84,10 +99,7 @@
 	border: 1px solid rgba(#000, 0.12);
 }
 .md-table + .md-table {
-	margin-top: 16px;
-}
-.md-app {
-	border: 1px solid rgba(#000, 0.12);
+	margin-top: 8px;
 }
 
 // Demo purposes only
