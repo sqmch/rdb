@@ -76,6 +76,9 @@
 .prbar {
 	margin: 12px;
 }
+.prbar {
+	margin: 12px;
+}
 .searchbut {
 	text-align: left;
 }
