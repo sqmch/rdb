@@ -26,16 +26,14 @@ class Rdb:
         else:
             return {}
 
-        index = 0
         onepacket = {}
         data = []
         for submission in subreddit:
             onepacket = {
-                'id': index,
+                'id': submission.id,
                 'title': submission.title
             }
             data.append(onepacket)
-            index += 1
 
         json_sub_data = json.dumps(data)
 

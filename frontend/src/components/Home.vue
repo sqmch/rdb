@@ -28,6 +28,9 @@
               </div>
             </md-card-actions>
           </md-card>
+          <md-content v-for="s in selected">
+            {{ s }}
+          </md-content>
         </div>
       </div>
       <!-- 2/3 and 3/3 cards -->
@@ -55,13 +58,12 @@
           <div class="md-toolbar-section-start">{{ getAlternateLabel(count) }}</div>
           <div class="md-toolbar-section-end">
             <md-button class="md-icon-button">
-              <md-icon>add</md-icon>
+              <md-icon md-alignment-top-center>add</md-icon>
             </md-button>
           </div>
         </md-table-toolbar>
 
         <!-- TABLE ROWS -->
-
         <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }" md-selectable="multiple" md-auto-select>
           <md-table-cell md-label="Title">{{ item.title }}</md-table-cell>
         </md-table-row>
@@ -72,10 +74,8 @@
 
 <style lang="scss" scoped>
 .prbar {
-	margin: 12px;
-}
-.prbar {
-	margin: 12px;
+	margin-top: 12px;
+	margin-bottom: 12px;
 }
 .searchbut {
 	text-align: left;
@@ -121,7 +121,7 @@ export default {
     titleVisible: false,
     radio: true,
     submissiondata: {},
-    selected: {},
+    selected: null,
     menuVisible: false,
     hasMessages: false
   }),
