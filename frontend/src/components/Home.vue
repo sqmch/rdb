@@ -8,16 +8,16 @@
           <md-input v-model="type"></md-input>
         </md-field>
       </div>
-      <md-button v-on:click="getSubs()" class="md-raised md-primary">Search</md-button>
+      <md-button v-on:click="getSubs()" class="md-raised md-primary" :disabled="radioSel">Search</md-button>
     </div>
 
     <!-- SORT MODE RADIO BUTTONS -->
     <div class="md-layout">
-      <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio">Top</md-radio></div>
-      <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio1">Hot</md-radio></div>
-      <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio2">New</md-radio></div>
-      <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio3">Rising</md-radio></div>
-      <div class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio4">Controversial</md-radio></div>
+      <div v-on:click="radioSelected()" class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio">Top</md-radio></div>
+      <div v-on:click="radioSelected()" class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio1">Hot</md-radio></div>
+      <div v-on:click="radioSelected()" class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio2">New</md-radio></div>
+      <div v-on:click="radioSelected()" class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio3">Rising</md-radio></div>
+      <div v-on:click="radioSelected()" class=" md-medium-size-33 md-small-size-50 md-xsmall-size-100"><md-radio v-model="radio" value="my-radio4">Controversial</md-radio></div>
     </div>
 
     <!-- PROGRESS BAR -->
@@ -45,7 +45,7 @@
           <div class="md-toolbar-section-start">{{ getAlternateLabel(count) }}</div>
           <div class="md-toolbar-section-end">
             <md-button class="md-icon-button">
-              <md-icon>delete</md-icon>
+              <md-icon>add</md-icon>
             </md-button>
           </div>
         </md-table-toolbar>
@@ -102,6 +102,7 @@ export default {
   data: () => ({
     isLoading: false,
     titleVisible: false,
+    radioSel: true,
     radio: true,
     submissiondata: {},
     selected: {},
@@ -121,6 +122,9 @@ export default {
       }
 
       return `${count} submission${plural} selected`
+    },
+    radioSelected () {
+      this.radioSel = false
     },
     getSubs () {
       this.isLoading = true
