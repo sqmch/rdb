@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="md-layout md-gutter">
-      <div class="md-layout-item md-medium-size-33 md-small-size-50 md-xsmall-size-100">
+      <div class="md-layout-item">
         <div class="md-layout-item">
           <!-- 1/3 card -->
           <md-card>
@@ -41,7 +41,7 @@
     <div class="md-layout-item">
       <md-table md-card v-model="submissiondata" @md-selected="onSelect">
         <md-table-empty-state md-label="Hello! Let's get started..."
-                              md-description="Choose name. Choose sorting type. Hit search." >
+                              md-description="Enter name. Choose sorting type. Hit search." >
         </md-table-empty-state>
 
         <!-- TITLE TOGGLE -->
