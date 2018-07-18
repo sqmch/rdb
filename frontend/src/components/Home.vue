@@ -24,7 +24,12 @@
             <!-- SEARCH BUTTON -->
             <md-card-actions md-alignment="left">
               <div class="searchbut">
-                <md-button v-on:click="getSubs()" class="md-raised md-primary" :disabled="this.radio == true || this.searchphrase.length <= 0">Scan</md-button>
+                <md-button v-on:click="getSubs()"
+                           class="md-raised md-primary"
+                           :disabled="this.radio == true || this.searchphrase.length <= 0">
+                           <md-icon md-alignment-top-center>search</md-icon>
+                           Search
+                </md-button>
               </div>
             </md-card-actions>
           </md-card>
@@ -33,46 +38,64 @@
       </div>
     </div>
     <!-- PROGRESS BAR -->
-      <div class="md-layout-item prbar">
-        <md-progress-bar v-visible="isLoading" md-mode="query"></md-progress-bar>
-      </div>
+    <div class="md-layout-item prbar">
+      <md-progress-bar v-visible="isLoading" md-mode="query"></md-progress-bar>
+    </div>
 
     <!-- DATA TABLE -->
-    <div class="md-layout-item">
-      <md-table md-card v-model="submissiondata" @md-selected="onSelect">
-        <md-table-empty-state md-label="Hello! Let's get started..."
-                               md-description="Enter name. Choose sorting type. Hit search." >
-        </md-table-empty-state>
+    <div class="md-layout md-gutter">
+      <div class="md-layout-item">
+        <md-table md-card v-model="submissiondata" @md-selected="onSelect">
+          <md-table-empty-state md-label="Hello! Let's get started..."
+                                md-description="Enter name. Choose sorting type. Hit search."
+                                md-rounded>
+          </md-table-empty-state>
 
-        <!-- TITLE TOGGLE -->
-        <md-table-toolbar>
-          <transition name="fade"><h2 v-if="titleVisible" class="md-title">Submissions</h2>
-          </transition>
-        </md-table-toolbar>
+          <!-- TITLE TOGGLE -->
+          <md-table-toolbar>
+            <transition name="fade"><h2 v-if="titleVisible" class="md-title">Submissions</h2>
+            </transition>
+          </md-table-toolbar>
 
-        <!-- SELECTED ITEM COUNTER BARS -->
-        <md-table-toolbar slot="md-table-alternate-header" slot-scope="{ count }">
-          <div class="md-toolbar-section-start">{{ getAlternateLabel(count) }}</div>
-          <div class="md-toolbar-section-end">
-            <md-button class="md-icon-button">
-              <md-icon md-alignment-top-center>add</md-icon>
-            </md-button>
-          </div>
-        </md-table-toolbar>
+          <!-- SELECTED ITEM COUNTER BARS -->
+          <md-table-toolbar slot="md-table-alternate-header" slot-scope="{ count }">
+            <div class="md-toolbar-section-start">
+              <md-button class="md-raised md-primary">
+                <md-icon md-alignment-top-center md-size-2x>assessment</md-icon>
+                Grab data
+              </md-button>
+            <div class="tete md-toolbar-section-beginning">{{ getAlternateLabel(count) }}</div>
 
-        <!-- TABLE ROWS -->
-        <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }" md-selectable="multiple" md-auto-select>
-          <md-table-cell md-label="Title">{{ item.title }}</md-table-cell>
-        </md-table-row>
-        <md-content v-if="submissiondata.length < 1">
-          No submissions found
-        </md-content>
-      </md-table>
+            </div>
+          </md-table-toolbar>
+
+          <!-- TABLE ROWS -->
+          <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }" md-selectable="multiple" md-auto-select>
+            <md-table-cell md-label="Title">{{ item.title }}</md-table-cell>
+          </md-table-row>
+          <md-content v-if="submissiondata.length < 1">
+            No submissions found
+          </md-content>
+        </md-table>
+      </div>
+      <!--
+      <div class="md-layout-item md-size-20">
+        <md-card>
+          <md-card-content>
+          </md-card-content>
+          <md-card-actions>
+          </md-card-actions>
+        </md-card>
+      </div>
+      -->
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.tete {
+	text-align: left;
+}
 .prbar {
 	margin-top: 12px;
 	margin-bottom: 12px;
@@ -141,6 +164,7 @@ export default {
       return `${count} submission${plural} selected`
     },
     getSubs () {
+      this.selected.length = 0
       this.isLoading = true
       const path = 'http://localhost:5000/api/submissions'
       axios
