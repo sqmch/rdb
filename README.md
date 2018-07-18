@@ -21,6 +21,7 @@ pip install -r requirements.txt
 ```
 cd ..
 cd frontend
+npm install
 npm run dev
 cd ..
 $env:FLASK_APP="run.py"
