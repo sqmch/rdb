@@ -10,7 +10,7 @@
               <md-field :class="messageClass">
                 <label>Enter subreddit name...</label>
                 <md-input required v-model="searchphrase"></md-input>
-                <span class="md-error">Enter correct subreddit name</span>
+                <span class="md-error">Enter subreddit name</span>
               </md-field>
               <!-- SORT MODE RADIO BUTTONS -->
               <div class="md-layout md-medium-size-33 md-small-size-50 md-xsmall-size-100">
@@ -24,11 +24,11 @@
             <!-- SEARCH BUTTON -->
             <md-card-actions md-alignment="left">
               <div class="searchbut">
-                <md-button v-on:click="getSubs()" class="md-raised md-primary" :disabled="(radio == true)">Scan</md-button>
+                <md-button v-on:click="getSubs()" class="md-raised md-primary" :disabled="this.radio == true || this.searchphrase.length <= 0">Scan</md-button>
               </div>
             </md-card-actions>
           </md-card>
-          {{ selected }} {{ radio }}
+          <!--{{ selected }} -->
         </div>
       </div>
     </div>
@@ -41,7 +41,7 @@
     <div class="md-layout-item">
       <md-table md-card v-model="submissiondata" @md-selected="onSelect">
         <md-table-empty-state md-label="Hello! Let's get started..."
-                              md-description="Enter name. Choose sorting type. Hit search." >
+                               md-description="Enter name. Choose sorting type. Hit search." >
         </md-table-empty-state>
 
         <!-- TITLE TOGGLE -->
@@ -64,6 +64,9 @@
         <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }" md-selectable="multiple" md-auto-select>
           <md-table-cell md-label="Title">{{ item.title }}</md-table-cell>
         </md-table-row>
+        <md-content v-if="submissiondata.length < 1">
+          No submissions found
+        </md-content>
       </md-table>
     </div>
   </div>
@@ -113,7 +116,7 @@ import axios from 'axios'
 export default {
   name: 'Home',
   data: () => ({
-    searchphrase: null,
+    searchphrase: '',
     sortmode: 'top',
     required: null,
     isLoading: false,

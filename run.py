@@ -12,9 +12,9 @@ def search_submissions():
     rdb = Rdb()
     response_object = {}
     if 'sphrase' in request.args and 'sortmode' in request.args:
-        subname = request.args['sphrase']
+        sphrase = request.args['sphrase']
         sortmode = request.args['sortmode']
-        response_object = rdb.get_submissions(subname, sortmode)
+        response_object = rdb.get_submissions(sphrase, sortmode)
     else:
         response_object = rdb.get_submissions()
 
