@@ -2,17 +2,22 @@
 
 import json
 import praw
-import requests
 
 
 class Rdb:
-    # pulls data from praw (100 submissions from specified subreddit/sort mode) and serves to vue
+    """pulls data from praw (100 submissions from specified subreddit/sort mode) and serves to vue
+    """
+
     def __init__(self):
         self.reddit = praw.Reddit('bot1', user_agent="rdb - testing")
 
     def get_submissions(self, subname='programming', sortmode='top'):
-        # input: subreddit name and sort mode
-        # output: json table of subreddit submission data
+        """[summary]
+
+        Keyword Arguments:
+            subname {str} -- [description] (default: {'programming'})
+            sortmode {str} -- [description] (default: {'top'})
+        """
         if sortmode == 'top':
             subreddit = self.reddit.subreddit(subname).top('all')
         elif sortmode == 'hot':
@@ -38,3 +43,12 @@ class Rdb:
         json_sub_data = json.dumps(data)
 
         return json_sub_data
+
+    def scan_submissions(self, selected_submissions):
+        """[summary]
+
+        Arguments:
+            selected_submissions {[type]} -- [description]
+        """
+        for sub in selected_submissions:
+            pass

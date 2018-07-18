@@ -153,8 +153,20 @@ export default {
           this.titleVisible = true
         })
     },
-    selectSubs () {
-
+    processSelection (payload) {
+      const path = 'http://localhost:5000/api/process_selections'
+      axios.post(path, payload)
+        .then(() => {
+          // pass
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+        })
+    },
+    onProcess (evt) {
+      const payload = this.selected
+      this.processSelection(payload)
     }
   },
   computed: {
