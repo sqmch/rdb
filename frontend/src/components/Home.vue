@@ -9,16 +9,16 @@
               <!-- SUBREDDIT SEARCH INPUT -->
               <md-field :class="messageClass">
                 <label>Enter subreddit name...</label>
-                <md-input required v-model="type"></md-input>
+                <md-input required v-model="searchphrase"></md-input>
                 <span class="md-error">Enter correct subreddit name</span>
               </md-field>
               <!-- SORT MODE RADIO BUTTONS -->
               <div class="md-layout md-medium-size-33 md-small-size-50 md-xsmall-size-100">
-                <md-radio v-model="radio" id="top" value="radio-top">Top</md-radio>
-                <md-radio v-model="radio" id="hot" value="radio-hot">Hot</md-radio>
-                <md-radio v-model="radio" id="new" value="radio-new">New</md-radio>
-                <md-radio v-model="radio" id="gilded" value="radio-rising">Gilded</md-radio>
-                <md-radio v-model="radio" id="controversial" value="radio-controversial">Controversial</md-radio>
+                <md-radio v-model="radio" id="rtop" value="top">Top</md-radio>
+                <md-radio v-model="radio" id="rhot" value="hot">Hot</md-radio>
+                <md-radio v-model="radio" id="rnew" value="new">New</md-radio>
+                <md-radio v-model="radio" id="rgilded" value="rising">Gilded</md-radio>
+                <md-radio v-model="radio" id="rcontroversial" value="controversial">Controversial</md-radio>
               </div>
             </md-card-content>
             <!-- SEARCH BUTTON -->
@@ -28,7 +28,7 @@
               </div>
             </md-card-actions>
           </md-card>
-          {{ selected }}
+          {{ selected }} {{ radio }}
         </div>
       </div>
     </div>
@@ -113,12 +113,14 @@ import axios from 'axios'
 export default {
   name: 'Home',
   data: () => ({
+    searchphrase: null,
+    sortmode: 'top',
     required: null,
     isLoading: false,
     titleVisible: false,
     radio: true,
     submissiondata: {},
-    selected: {},
+    selected: [],
     menuVisible: false,
     hasMessages: false
   }),
@@ -139,11 +141,15 @@ export default {
       this.isLoading = true
       const path = 'http://localhost:5000/api/submissions'
       axios
-        .get(path)
+        .get(path, {
+          params: {
+            sphrase: this.searchphrase,
+            sortmode: this.radio
+          }
+        })
         .then(response => {
           var dataobj = JSON.parse(response.data)
           this.submissiondata = dataobj
-          console.log(dataobj)
           this.isLoading = false
           this.titleVisible = true
         })
