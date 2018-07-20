@@ -25,11 +25,11 @@ def search_submissions():
 def process_selections():
     rdb = Rdb()
     response_object = {}
-    if request.method == 'POST':
-        selected_subs = request.get_json()
-        response_object = rdb.scan_submissions(selected_subs)
-    else:
-        response_object['placeholder'] = 'if request.method==POST failed'
+    selected_subs = request.args['selectedItems']
+    print('selected_subs in process_selections(): ' + str(selected_subs))
+    print(request)
+
+    response_object = rdb.scan_submissions(request.args['selectedItems'])
     return jsonify(response_object)
 
 

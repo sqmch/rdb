@@ -46,9 +46,9 @@
     <div class="md-layout md-gutter">
       <div class="md-layout-item">
         <md-table md-card v-model="submissiondata" @md-selected="onSelect">
-          <md-table-empty-state md-label="Hello! Let's get started..."
-                                md-description="Enter name. Choose sorting type. Hit search."
-                                md-rounded>
+          <md-table-empty-state md-label="No submissions found"
+                                md-description="Please search for a valid subreddit above."
+                                md-icon="mood_bad">
           </md-table-empty-state>
 
           <!-- TITLE TOGGLE -->
@@ -60,8 +60,9 @@
           <!-- SELECTED ITEM COUNTER BARS -->
           <md-table-toolbar slot="md-table-alternate-header" slot-scope="{ count }">
             <div class="md-toolbar-section-start">
-              <md-button class="md-raised md-primary">
-                <md-icon md-alignment-top-center md-size-2x>assessment</md-icon>
+              <md-button class="md-raised md-primary"
+                         v-on:click="processSelection()">
+                <md-icon md-alignment-top-center md-size-2x>library_add</md-icon>
                 Grab data
               </md-button>
             <div class="tete md-toolbar-section-beginning">{{ getAlternateLabel(count) }}</div>
@@ -71,23 +72,23 @@
 
           <!-- TABLE ROWS -->
           <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }" md-selectable="multiple" md-auto-select>
-            <md-table-cell md-label="Title">{{ item.title }}</md-table-cell>
+            <md-table-cell md-label="All">{{ item.title }}</md-table-cell>
           </md-table-row>
-          <md-content v-if="submissiondata.length < 1">
-            No submissions found
-          </md-content>
         </md-table>
       </div>
-      <!--
+
       <div class="md-layout-item md-size-20">
         <md-card>
           <md-card-content>
+            <div v-for="i in commentdata">
+              {{ i }}
+            </div>
           </md-card-content>
           <md-card-actions>
           </md-card-actions>
         </md-card>
       </div>
-      -->
+
     </div>
   </div>
 </template>
@@ -145,8 +146,9 @@ export default {
     isLoading: false,
     titleVisible: false,
     radio: true,
+    commentdata: {},
     submissiondata: {},
-    selected: [],
+    selected: {},
     menuVisible: false,
     hasMessages: false
   }),
@@ -163,8 +165,12 @@ export default {
 
       return `${count} submission${plural} selected`
     },
+    onDatagrab () {
+      this.processSelection()
+    },
     getSubs () {
       this.selected.length = 0
+      this.submissiondata.length = 0
       this.isLoading = true
       const path = 'http://localhost:5000/api/submissions'
       axios
@@ -186,20 +192,44 @@ export default {
           this.titleVisible = true
         })
     },
-    processSelection (payload) {
+    processSelection () {
       const path = 'http://localhost:5000/api/process_selections'
-      axios.post(path, payload)
-        .then(() => {
-          // pass
+      axios
+        .get(path, {
+          params: {
+            selectedItems: this.selected[0].id
+          }
+
+        })
+        .then(response => {
+          console.log('ran in processSelection .then(response...')
+          var selobj = JSON.parse(response.data)
+          this.commentdata = selobj
         })
         .catch((error) => {
-          // eslint-disable-next-line
-          console.log(error);
+        // eslint-disable-next-line
+          console.log("this following error happened in processSelection ()")
+          console.log(error)
         })
     },
-    onProcess (evt) {
-      const payload = this.selected
-      this.processSelection(payload)
+    getSubsOnLoad () {
+      this.selected.length = 0
+      this.submissiondata.length = 0
+      this.isLoading = true
+      const path = 'http://localhost:5000/api/submissions'
+      axios
+        .get(path)
+        .then(response => {
+          var dataobj = JSON.parse(response.data)
+          this.submissiondata = dataobj
+          this.isLoading = false
+          this.titleVisible = true
+        })
+        .catch(error => {
+          console.log(error)
+          this.isLoading = false
+          this.titleVisible = true
+        })
     }
   },
   computed: {
@@ -208,6 +238,9 @@ export default {
         'md-invalid': this.hasMessages
       }
     }
+  },
+  created: function () {
+    this.getSubsOnLoad()
   }
 }
 
