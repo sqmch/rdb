@@ -44,17 +44,20 @@ class Rdb:
     def scan_submissions(self, selected_submissions):
         """[scan selected submissions and return comment data etc]
         """
-        print("scan_submission START - selected_submissions = " + selected_submissions)
+        print(
+            "scan_submission START -\nselected_submissions = "
+            + str(selected_submissions)
+        )
         comment_amounts = []
-        # single sub code
-        onepacket = {
-            "cmnt_amt": str(
-                len(self.reddit.submission(id=selected_submissions).comments.list())
-            )
-        }
+        for i in selected_submissions:
+            if i is not None:
+                # single sub code
+                onepacket = {i: str(len(self.reddit.submission(id=i).comments.list()))}
+                comment_amounts.append(onepacket)
         print("scan_submission PACKET SAVED")
-        comment_amounts.append(onepacket)
+
         json_submission_data = json.dumps(comment_amounts)
+        print(f"json_submission_data = {json_submission_data}")
         print("scan_submission END")
         return json_submission_data
 

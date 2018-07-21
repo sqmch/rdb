@@ -146,11 +146,12 @@ export default {
     isLoading: false,
     titleVisible: false,
     radio: true,
-    commentdata: {},
+    commentdata: [],
     submissiondata: {},
     selected: {},
     menuVisible: false,
-    hasMessages: false
+    hasMessages: false,
+    selObjects: {}
   }),
   methods: {
     onSelect (item) {
@@ -194,17 +195,21 @@ export default {
     },
     processSelection () {
       const path = 'http://localhost:5000/api/process_selections'
+      var selctd = this.selected.map(entry => entry.id)
+      console.log('selO - ' + this.selO)
+      console.log('selected = ' + this.selected)
+      console.log('slctd = ' + selctd)
+
       axios
         .get(path, {
-          params: {
-            selectedItems: this.selected[0].id
-          }
+          params: selctd
 
         })
         .then(response => {
-          console.log('ran in processSelection .then(response...')
+          console.log('START processSelection .then(response...')
           var selobj = JSON.parse(response.data)
           this.commentdata = selobj
+          console.log('FINISH processSelection .then(response...')
         })
         .catch((error) => {
         // eslint-disable-next-line
