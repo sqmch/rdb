@@ -42,8 +42,8 @@
       <md-progress-bar v-visible="isLoading" md-mode="query"></md-progress-bar>
     </div>
 
-    <!-- DATA TABLE -->
     <div class="md-layout md-gutter">
+      <!-- DATA TABLE -->
       <div class="md-layout-item">
         <md-table md-card v-model="submissiondata" @md-selected="onSelect">
           <md-table-empty-state md-label="No submissions found"
@@ -77,16 +77,30 @@
         </md-table>
       </div>
 
-      <div class="md-layout-item md-size-20">
-        <md-card>
-          <md-card-content>
-            <div v-for="i in commentdata">
-              {{ i }}
-            </div>
-          </md-card-content>
-          <md-card-actions>
-          </md-card-actions>
-        </md-card>
+      <!-- RESULTS TABLE-->
+      <div class="md-layout-item md-size-50">
+        <div class="md-layout-item">
+          <md-table md-card v-model="commentdata">
+            <md-table-empty-state md-label="Let's get started!"
+                                  md-description="Select submissions and grab data."
+                                  md-icon="library_books">
+            </md-table-empty-state>
+
+            <!-- TITLE TOGGLE -->
+            <md-table-toolbar>
+              <transition name="fade"><h2 v-if="titleVisible" class="md-title">Results</h2>
+              </transition>
+            </md-table-toolbar>
+
+            <!-- TABLE ROWS -->
+            <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }">
+              <md-table-cell md-label="ID">{{ item.id }}</md-table-cell>
+              <md-table-cell md-label="Title">{{ item.title }}</md-table-cell>
+              <md-table-cell md-label="Comment Amount">{{ item.cmnt_amt }}</md-table-cell>
+              <md-table-cell md-label="Score">{{ item.score }}</md-table-cell>
+            </md-table-row>
+          </md-table>
+        </div>
       </div>
 
     </div>
@@ -194,6 +208,7 @@ export default {
         })
     },
     processSelection () {
+      this.isLoading = true
       const path = 'http://localhost:5000/api/process_selections'
       var selctd = this.selected.map(entry => entry.id)
       console.log('selO - ' + this.selO)
@@ -210,11 +225,13 @@ export default {
           var selobj = JSON.parse(response.data)
           this.commentdata = selobj
           console.log('FINISH processSelection .then(response...')
+          this.isLoading = false
         })
         .catch((error) => {
         // eslint-disable-next-line
           console.log("this following error happened in processSelection ()")
           console.log(error)
+          this.isLoading = false
         })
     },
     getSubsOnLoad () {

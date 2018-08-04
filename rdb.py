@@ -12,11 +12,12 @@ class Rdb:
         self.reddit = praw.Reddit("bot1", user_agent="rdb - testing")
 
     def get_submissions(self, subname="all", sortmode="hot"):
-        """[summary]
+        """[Return 100 submissions from a specified subreddit + sort mode.]
 
         Keyword Arguments:
-            subname {str} -- [description] (default: {'programming'})
-            sortmode {str} -- [description] (default: {'top'})
+            subname {str} -- [subreddit name] (default: {'programming'})
+            sortmode {str} -- [sorting option (top, hot, new, rising, 
+                              controversial)] (default: {'top'})
         """
         if sortmode == "top":
             subreddit = self.reddit.subreddit(subname).top("all")
@@ -42,33 +43,28 @@ class Rdb:
         return json_sub_data
 
     def scan_submissions(self, selected_submissions):
-        """[scan selected submissions and return comment data etc]
+        """[call reddit api through praw and return comment data]
+            selected_submissions -- list of subreddit id-s
         """
         print(
             "scan_submission START -\nselected_submissions = "
             + str(selected_submissions)
         )
-        comment_amounts = []
+        data = []
         for i in selected_submissions:
+            submission = self.reddit.submission(id=i)
             if i is not None:
-                # single sub code
-                onepacket = {i: str(len(self.reddit.submission(id=i).comments.list()))}
-                comment_amounts.append(onepacket)
-        print("scan_submission PACKET SAVED")
+                # fill an object with data and add it to data array
+                onepacket = {
+                    "id": i,
+                    "title": submission.title,
+                    "cmnt_amt": str(len(submission.comments.list())),
+                    "score": str(submission.score),
+                }
+                data.append(onepacket)
 
-        json_submission_data = json.dumps(comment_amounts)
+        json_submission_data = json.dumps(data)
         print(f"json_submission_data = {json_submission_data}")
         print("scan_submission END")
         return json_submission_data
 
-
-""" for subid in selected_submissions:
-    sub_list.append(self.reddit.submission(id=subid))
-
-for sub in sub_list:
-    sub.comments.replace_more(limit=None)
-
-    onepacket = {
-        'cmnt_amt': str(len(sub.comments.list()))
-    }
-    comment_amounts.append(onepacket) """
