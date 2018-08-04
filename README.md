@@ -1,11 +1,11 @@
-# rdb - pull data from reddit
+# rdb - Vue.js GUI for pulling data from reddit with praw
 
-- backend: flask, praw
-- frontend: vue.js with vue-material
+- backend: flask
+- frontend: Vue.js with vue-material
 
 #
 
-### make a virtual env and install dependencies
+### Make a virtual env and install dependencies
 
 ```
 mkdir backend (in project folder root)
@@ -16,7 +16,7 @@ venv/scripts/activate
 pip install -r requirements.txt
 ```
 
-### running flask and node
+### Running flask and node
 
 ```
 cd ..
@@ -43,8 +43,8 @@ username=YOURUSERNAME
 
 - make a reddit account and 'create app' (script) at https://www.reddit.com/prefs/apps
 
-- you will get the client_id and client_secret from creating the app
+- you will get the client_id and client_secret while creating the app
 
-- update praw.ini and save
+- update praw.ini with the new details and save
 
-- praw will now read auth information from the ini file, keep in mind the name in the brackets ('bot1' in this case) has to match the argument passed to praw.Reddit in rdb.py
+- praw will now read auth information from the ini file, keep in mind the name in the brackets ('bot1' by default) has to match the argument passed to praw.Reddit in rdb.py

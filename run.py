@@ -1,17 +1,42 @@
 # vue/flask implementation of rcdbot (some simpimport requests
 import requests
-from flask import Flask, render_template, jsonify
-from random import *
+import json
+from flask import Flask, render_template, jsonify, request
 from rdb import Rdb
+
 
 app = Flask(__name__, static_folder="./dist/static", template_folder="./dist")
 
 
-@app.route("/api/submissions")
-def serve_submissions():
+@app.route("/api/submissions", methods=["GET", "POST"])
+def search_submissions():
     rdb = Rdb()
-    data = rdb.get_submissions()
-    return jsonify(data)
+    response_object = {}
+    if "sphrase" in request.args and "sortmode" in request.args:
+        sphrase = request.args["sphrase"]
+        sortmode = request.args["sortmode"]
+        response_object = rdb.get_submissions(sphrase, sortmode)
+    else:
+        response_object = rdb.get_submissions()
+
+    return jsonify(response_object)
+
+
+@app.route("/api/process_selections", methods=["GET", "POST"])
+def process_selections():
+    print("process_selections START - request: " + str(request.args))
+    rdb = Rdb()
+    response_object = {}
+    idlist = []
+    for i in range(0, len(request.args)):
+        idlist.append(request.args.get(str(i)))
+
+    print(f"idlist = {idlist}")
+    print("request = " + str(request))
+
+    response_object = rdb.scan_submissions(idlist)
+    print(f"response_object = {response_object}")
+    return jsonify(response_object)
 
 
 @app.route("/", defaults={"path": ""})

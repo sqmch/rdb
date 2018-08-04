@@ -1,8 +1,8 @@
 <template>
   <div id="app" class="md-layout">
-    <div class="md-layout-item">
-    <md-app md-waterfall md-mode="fixed">
-      <md-app-toolbar class=" md-dense md-primary">
+    <div class="page-container md-layout-item">
+    <md-app md-mode="fixed">
+      <md-app-toolbar class="md-primary md-dense">
         <div class="md-toolbar-row ">
           <!-- MENU ICON ROW-->
           <div class="md-toolbar-section-start">
@@ -21,22 +21,29 @@
           </div>
           <!-- /THREE-BUTTON ICON ON THE RIGHT-->
         </div>
-        <!-- TABS-->
-        <div  class="md-layout-item">
+
+        <!-- TABS ----------------------------- -->
+        <div class="md-layout-item">
           <md-tabs md-sync-route class="md-primary ">
+
+            <!-- HOME-->
             <md-tab  id="tab-home" md-label="Home" to="/">
               <div class="md-layout-item">
                 <router-view/>
               </div>
             </md-tab>
+
+            <!-- MISC-->
             <md-tab id="tab-misc" md-label="Misc" to="/misc">
               <div class="md-layout-item">
                 <router-view/>
               </div>
             </md-tab>
+
           </md-tabs>
         </div>
-        <!-- /TABS-->
+        <!-- /TABS ---------------------------- -->
+
       </md-app-toolbar>
       <!-- SLIDING MENU-->
       <md-app-drawer :md-active.sync="menuVisible">
@@ -69,8 +76,7 @@ import Home from './components/Home.vue'
 export default {
   name: 'App',
   data: () => ({
-    menuVisible: false,
-    selected: {}
+    menuVisible: false
   }),
   components: {
     Misc,
@@ -83,11 +89,11 @@ export default {
 <style lang="scss">
 #app {
 	height: 100vh;
-	font-family: "Avenir", Helvetica, Arial, sans-serif;
+	font-family: Roboto, sans-serif;
+	//font-family: "Avenir", Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
-	color: #2c3e50;
 	margin-top: 0px;
 }
 </style>
