@@ -24,9 +24,15 @@ cd frontend
 npm install
 npm run dev
 cd ..
+flask run
+
+(Situational: manually set environment variables)
+FLASK_APP=run.py
+FLASK_DEBUG=1
+
+PowerShell:
 $env:FLASK_APP="run.py"
 $env:FLASK_DEBUG=1
-flask run
 ```
 
 ### praw authentication
@@ -45,6 +51,6 @@ username=YOURUSERNAME
 
 - you will get the client_id and client_secret while creating the app
 
-- update praw.ini with the new details and save
+- update praw.ini with the new details and save. The praw.ini file is .gitignored, make sure it stays that way to protect your account details.
 
 - praw will now read auth information from the ini file, keep in mind the name in the brackets ('bot1' by default) has to match the argument passed to praw.Reddit in rdb.py
