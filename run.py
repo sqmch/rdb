@@ -24,18 +24,13 @@ def search_submissions():
 
 @app.route("/api/process_selections", methods=["GET", "POST"])
 def process_selections():
-    print("process_selections START - request: " + str(request.args))
     rdb = Rdb()
     response_object = {}
     idlist = []
     for i in range(0, len(request.args)):
         idlist.append(request.args.get(str(i)))
 
-    print(f"idlist = {idlist}")
-    print("request = " + str(request))
-
     response_object = rdb.scan_submissions(idlist)
-    print(f"response_object = {response_object}")
     return jsonify(response_object)
 
 

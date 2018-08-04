@@ -46,10 +46,6 @@ class Rdb:
         """[call reddit api through praw and return comment data]
             selected_submissions -- list of subreddit id-s
         """
-        print(
-            "scan_submission START -\nselected_submissions = "
-            + str(selected_submissions)
-        )
         data = []
         for i in selected_submissions:
             submission = self.reddit.submission(id=i)
@@ -64,7 +60,5 @@ class Rdb:
                 data.append(onepacket)
 
         json_submission_data = json.dumps(data)
-        print(f"json_submission_data = {json_submission_data}")
-        print("scan_submission END")
         return json_submission_data
 
