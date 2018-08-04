@@ -3,7 +3,6 @@
     <div class="md-layout md-gutter">
       <div class="md-layout-item">
         <div class="md-layout-item">
-          <!-- 1/3 card -->
           <md-card>
             <md-card-content>
               <!-- SUBREDDIT SEARCH INPUT -->
@@ -78,7 +77,7 @@
       </div>
 
       <!-- RESULTS TABLE-->
-      <div class="md-layout-item md-size-50">
+      <div class="md-layout-item md-size-66">
         <div class="md-layout-item">
           <md-table md-card v-model="commentdata">
             <md-table-empty-state md-label="Let's get started!"
@@ -96,6 +95,8 @@
             <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }">
               <md-table-cell md-label="ID">{{ item.id }}</md-table-cell>
               <md-table-cell md-label="Title">{{ item.title }}</md-table-cell>
+              <md-table-cell md-label="Title Polarity">{{ item.title_polarity }}</md-table-cell>
+              <md-table-cell md-label="Title Subjectivity">{{ item.title_subjectivity }}</md-table-cell>
               <md-table-cell md-label="Comment Amount">{{ item.cmnt_amt }}</md-table-cell>
               <md-table-cell md-label="Score">{{ item.score }}</md-table-cell>
             </md-table-row>

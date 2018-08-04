@@ -2,6 +2,7 @@
 
 import json
 import praw
+from textblob import TextBlob
 
 
 class Rdb:
@@ -51,9 +52,13 @@ class Rdb:
             submission = self.reddit.submission(id=i)
             if i is not None:
                 # fill an object with data and add it to data array
+                titlepolarity = TextBlob(submission.title).sentiment.polarity
+                titlesubjectivity = TextBlob(submission.title).sentiment.subjectivity
                 onepacket = {
                     "id": i,
                     "title": submission.title,
+                    "title_polarity": titlepolarity,
+                    "title_subjectivity": titlesubjectivity,
                     "cmnt_amt": str(len(submission.comments.list())),
                     "score": str(submission.score),
                 }
