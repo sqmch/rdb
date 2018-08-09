@@ -101,6 +101,11 @@
               <md-table-cell md-label="Score">{{ item.score }}</md-table-cell>
             </md-table-row>
           </md-table>
+          <md-card>
+          <chartjs-line></chartjs-line>
+          <chartjs-bar></chartjs-bar>
+          <chartjs-radar></chartjs-radar>
+          </md-card>
         </div>
       </div>
 
@@ -151,10 +156,14 @@
 
 <script>
 import axios from 'axios'
+import {Bar} from 'vue-chartjs'
 
 export default {
+  extends: Bar,
   name: 'Home',
   data: () => ({
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    dataset: [111, 59, 2323, 81, 56, 55, 2222],
     searchphrase: '',
     sortmode: 'top',
     required: null,
@@ -264,6 +273,9 @@ export default {
   },
   created: function () {
     this.getSubsOnLoad()
+  },
+  mounted () {
+    this.renderChart(this.datacollection, {responsive: true, maintainAspectRatio: false})
   }
 }
 
