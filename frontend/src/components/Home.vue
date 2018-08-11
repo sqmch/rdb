@@ -272,9 +272,6 @@ export default {
   },
   created: function () {
     this.getSubsOnLoad()
-  },
-  mounted () {
-    this.renderChart(this.datacollection, {responsive: true, maintainAspectRatio: false})
   }
 }
 
