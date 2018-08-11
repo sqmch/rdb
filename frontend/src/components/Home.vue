@@ -220,9 +220,6 @@ export default {
       this.isLoading = true
       const path = 'http://localhost:5000/api/process_selections'
       var selctd = this.selected.map(entry => entry.id)
-      console.log('selO - ' + this.selO)
-      console.log('selected = ' + this.selected)
-      console.log('slctd = ' + selctd)
 
       axios
         .get(path, {
@@ -230,15 +227,12 @@ export default {
 
         })
         .then(response => {
-          console.log('START processSelection .then(response...')
           var selobj = JSON.parse(response.data)
           this.commentdata = selobj
-          console.log('FINISH processSelection .then(response...')
           this.isLoading = false
         })
         .catch((error) => {
         // eslint-disable-next-line
-          console.log("this following error happened in processSelection ()")
           console.log(error)
           this.isLoading = false
         })
