@@ -101,9 +101,9 @@
               <md-table-cell md-label="Score">{{ item.score }}</md-table-cell>
             </md-table-row>
           </md-table>
-          <chartjs-line :data='dataset' :labels='labels'></chartjs-line>
-          <chartjs-bar :data='dataset' :labels='labels'></chartjs-bar>
-          <chartjs-radar :data='dataset' :labels='labels'></chartjs-radar>
+          <chartjs-line :data='polaritydata' :labels='polaritydatalabels' :bind='true'></chartjs-line>
+          <chartjs-bar :data='polaritydata' :labels='polaritydatalabels' :bind='true'></chartjs-bar>
+          <chartjs-radar :data='polaritydata' :labels='polaritydatalabels' :bind='true'></chartjs-radar>
           </md-card>
         </div>
       </div>
@@ -174,7 +174,9 @@ export default {
     selected: {},
     menuVisible: false,
     hasMessages: false,
-    selObjects: {}
+    selObjects: {},
+    polaritydata: [],
+    polaritydatalabels: []
   }),
   methods: {
     onSelect (item) {
@@ -229,7 +231,12 @@ export default {
         .then(response => {
           var selobj = JSON.parse(response.data)
           this.commentdata = selobj
+          this.polaritydatalabels = this.commentdata.map(a => a.id)
+          this.polaritydata = this.commentdata.map(a => a.title_polarity)
+          this.addData()
           this.isLoading = false
+          console.log('polaritydata =' + this.polaritydata)
+          console.log('polaritydatalabels =' + this.polaritydatalabels)
         })
         .catch((error) => {
         // eslint-disable-next-line
@@ -255,6 +262,9 @@ export default {
           this.isLoading = false
           this.titleVisible = true
         })
+    },
+    addData () {
+      this.polaritydata.push(this.commentdata.map(a => a.title_polarity))
     }
   },
   computed: {
