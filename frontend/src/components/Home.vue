@@ -101,10 +101,9 @@
               <md-table-cell md-label="Score">{{ item.score }}</md-table-cell>
             </md-table-row>
           </md-table>
-          <md-card>
-          <chartjs-line></chartjs-line>
-          <chartjs-bar></chartjs-bar>
-          <chartjs-radar></chartjs-radar>
+          <chartjs-line :data='dataset' :labels='labels'></chartjs-line>
+          <chartjs-bar :data='dataset' :labels='labels'></chartjs-bar>
+          <chartjs-radar :data='dataset' :labels='labels'></chartjs-radar>
           </md-card>
         </div>
       </div>
@@ -163,7 +162,7 @@ export default {
   name: 'Home',
   data: () => ({
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    dataset: [111, 59, 2323, 81, 56, 55, 2222],
+    dataset: [1511, 59, 2323, 8981, 56, -5585, -5566.5],
     searchphrase: '',
     sortmode: 'top',
     required: null,
