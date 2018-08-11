@@ -101,10 +101,18 @@
               <md-table-cell md-label="Score">{{ item.score }}</md-table-cell>
             </md-table-row>
           </md-table>
-          <chartjs-line :data='polaritydata' :labels='polaritydatalabels' :bind='true'></chartjs-line>
-          <chartjs-bar :data='polaritydata' :labels='polaritydatalabels' :bind='true'></chartjs-bar>
-          <chartjs-radar :data='polaritydata' :labels='polaritydatalabels' :bind='true'></chartjs-radar>
-          </md-card>
+            <chartjs-line :data="polaritydata"
+                          :labels="polaritydatalabels"
+                          :bind="true"
+                          :linetension="0"
+                          :datalabel="'Polarity'">
+            </chartjs-line>
+            <chartjs-line :data="subjectivitydata"
+                          :labels="subjectivitydatalabels"
+                          :bind="true"
+                          :linetension="0"
+                          :datalabel="'Subjectivity'">
+            </chartjs-line>
         </div>
       </div>
 
@@ -176,7 +184,9 @@ export default {
     hasMessages: false,
     selObjects: {},
     polaritydata: [],
-    polaritydatalabels: []
+    polaritydatalabels: [],
+    subjectivitydata: [],
+    subjectivitydatalabels: []
   }),
   methods: {
     onSelect (item) {
@@ -233,6 +243,8 @@ export default {
           this.commentdata = selobj
           this.polaritydatalabels = this.commentdata.map(a => a.id)
           this.polaritydata = this.commentdata.map(a => a.title_polarity)
+          this.subjectivitydatalabels = this.commentdata.map(a => a.id)
+          this.subjectivitydata = this.commentdata.map(a => a.title_subjectivity)
           this.addData()
           this.isLoading = false
           console.log('polaritydata =' + this.polaritydata)
@@ -265,6 +277,7 @@ export default {
     },
     addData () {
       this.polaritydata.push(this.commentdata.map(a => a.title_polarity))
+      this.subjectivitydata.push(this.commentdata.map(a => a.title_subjectivity))
     }
   },
   computed: {
