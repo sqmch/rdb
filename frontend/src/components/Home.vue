@@ -104,14 +104,23 @@
             <chartjs-line :data="polaritydata"
                           :labels="polaritydatalabels"
                           :bind="true"
+                          :height="50"
                           :linetension="0"
                           :datalabel="'Polarity'">
             </chartjs-line>
             <chartjs-line :data="subjectivitydata"
                           :labels="subjectivitydatalabels"
                           :bind="true"
+                          :height="50"
                           :linetension="0"
                           :datalabel="'Subjectivity'">
+            </chartjs-line>
+            <chartjs-line :data="commentamountdata"
+                          :labels="commentamountdatalabels"
+                          :bind="true"
+                          :height="50"
+                          :linetension="0"
+                          :datalabel="'Comment amount'">
             </chartjs-line>
         </div>
       </div>
@@ -186,7 +195,9 @@ export default {
     polaritydata: [],
     polaritydatalabels: [],
     subjectivitydata: [],
-    subjectivitydatalabels: []
+    subjectivitydatalabels: [],
+    commentamountdata: [],
+    commentamountdatalabels: []
   }),
   methods: {
     onSelect (item) {
@@ -245,6 +256,8 @@ export default {
           this.polaritydata = this.commentdata.map(a => a.title_polarity)
           this.subjectivitydatalabels = this.commentdata.map(a => a.id)
           this.subjectivitydata = this.commentdata.map(a => a.title_subjectivity)
+          this.commentamountdata = this.commentdata.map(a => a.cmnt_amt)
+          this.commentamountdatalabels = this.commentdata.map(a => a.id)
           this.addData()
           this.isLoading = false
           console.log('polaritydata =' + this.polaritydata)
@@ -278,6 +291,7 @@ export default {
     addData () {
       this.polaritydata.push(this.commentdata.map(a => a.title_polarity))
       this.subjectivitydata.push(this.commentdata.map(a => a.title_subjectivity))
+      this.commentamountdata.push(this.commentdata.map(a => a.cmnt_amt))
     }
   },
   computed: {

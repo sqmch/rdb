@@ -12,7 +12,7 @@ class Rdb:
     def __init__(self):
         self.reddit = praw.Reddit("bot1", user_agent="rdb - testing")
 
-    def get_submissions(self, subname="python", sortmode="hot"):
+    def get_submissions(self, subname="all", sortmode="hot"):
         """[Return 100 submissions from a specified subreddit + sort mode.]
 
         Keyword Arguments:
