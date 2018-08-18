@@ -87,8 +87,15 @@
 
             <!-- TITLE TOGGLE -->
             <md-table-toolbar>
-              <transition name="fade"><h2 v-if="titleVisible" class="md-title">Results</h2>
-              </transition>
+                            <md-button :disabled="this.commentdata.length <= 0">
+                <md-icon>save_alt</md-icon>
+                <download-csv
+                  :data="commentdata"
+                  name="submissionData.csv">
+                  Download Data
+                </download-csv>
+              </md-button>
+
             </md-table-toolbar>
 
             <!-- TABLE ROWS -->
@@ -121,6 +128,13 @@
                           :height="50"
                           :linetension="0"
                           :datalabel="'Comment amount'">
+            </chartjs-line>
+            <chartjs-line :data="commentscoredata"
+                          :labels="commentscoredatalabels"
+                          :bind="true"
+                          :height="50"
+                          :linetension="0"
+                          :datalabel="'Score'">
             </chartjs-line>
         </div>
       </div>
@@ -197,7 +211,9 @@ export default {
     subjectivitydata: [],
     subjectivitydatalabels: [],
     commentamountdata: [],
-    commentamountdatalabels: []
+    commentamountdatalabels: [],
+    commentscoredata: [],
+    commentscoredatalabels: []
   }),
   methods: {
     onSelect (item) {
@@ -258,6 +274,8 @@ export default {
           this.subjectivitydata = this.commentdata.map(a => a.title_subjectivity)
           this.commentamountdata = this.commentdata.map(a => a.cmnt_amt)
           this.commentamountdatalabels = this.commentdata.map(a => a.id)
+          this.commentscoredata = this.commentdata.map(a => a.score)
+          this.commentscoredatalabels = this.commentdata.map(a => a.id)
           this.addData()
           this.isLoading = false
           console.log('polaritydata =' + this.polaritydata)
@@ -292,6 +310,7 @@ export default {
       this.polaritydata.push(this.commentdata.map(a => a.title_polarity))
       this.subjectivitydata.push(this.commentdata.map(a => a.title_subjectivity))
       this.commentamountdata.push(this.commentdata.map(a => a.cmnt_amt))
+      this.commentscoredata.push(this.commentdata.map(a => a.score))
     }
   },
   computed: {

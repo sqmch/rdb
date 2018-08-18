@@ -3,10 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import VueGoogleCharts from 'vue-google-charts'
 import 'hchs-vue-charts'
+import JsonCSV from 'vue-json-csv'
 
-Vue.use(VueGoogleCharts)
+Vue.component('downloadCsv', JsonCSV)
 Vue.use(window.VueCharts)
 Vue.config.productionTip = false
 
