@@ -39,6 +39,7 @@ pip install -r requirements.txt
 
 (linux)
 mkdir backend (in project folder root)
+cd backend
 virtualenv -p python3 venv (linux)
 source venv/bin/activate
 cd ..
