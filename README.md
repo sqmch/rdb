@@ -1,10 +1,10 @@
-# rdb - Vue.js GUI for pulling data from reddit with praw
+# rdb - Vue.js GUI for pulling data from reddit with praw (WIP)
 
-#### This project is an exploration of Vue, flask and various related modules for educational purposes. The idea was to look more closely at how to create modern web-based GUI-s for some python scripts I had lying around.
+##### This project is an exploration of Vue and Flask for learning purposes. The idea was born from interest in creating modern web-based GUI-s for python scripts. Original inspiration: https://github.com/oleg-agapov/flask-vue-spa
 
-#### rdb lists submissions of a specified subreddit, lets you select the ones you're interested in and then by pressing "Grab data" shows some collected data in a table with some charts to go with it.
+##### rdb lists submissions of a specified subreddit, lets you select the ones you're interested in and then by pressing "Grab data" shows the collected data in a table with some charts to go with it, as well as the option to download it as a CSV file.
 
-- backend: flask
+- backend: Flask
 - frontend: Vue.js with vue-material
 
 ## Setup
@@ -40,7 +40,7 @@ pip install -r requirements.txt
 (linux)
 mkdir backend (in project folder root)
 cd backend
-virtualenv -p python3 venv (linux)
+virtualenv -p python3 venv
 source venv/bin/activate
 cd ..
 pip3 install -r requiremenets.txt
