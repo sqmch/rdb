@@ -2,9 +2,8 @@
 
 ## Features
 
-- Charts
-- Historic data
-- Pull data as a file
+- Update the charts to display more meaningful data
+- Add historic data gathering (separate tab for displaying data that gets gathered regularly over time)
 
 ## Bugs
 
