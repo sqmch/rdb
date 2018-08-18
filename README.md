@@ -29,29 +29,37 @@ username=YOURUSERNAME
 ### Make a virtual env and install dependencies
 
 ```
-(Windows)
+(windows)
 mkdir backend (in project folder root)
 cd backend
 python -m venv venv
 venv/scripts/activate
+cd ..
 pip install -r requirements.txt
+
+(linux)
+mkdir backend (in project folder root)
+virtualenv -p python3 venv (linux)
+source venv/bin/activate
+cd ..
+pip3 install -r requiremenets.txt
 ```
 
 ### Running flask and node
 
 ```
-cd ..
 cd frontend
 npm install
 npm run dev
 cd ..
 flask run
 
-(Situational: manually set environment variables)
-FLASK_APP=run.py
-FLASK_DEBUG=1
-
+(Situational: set environment variables)
 PowerShell:
 $env:FLASK_APP="run.py"
 $env:FLASK_DEBUG=1
+
+Bash:
+export FLASK_APP=run.py
+export FLASK_DEBUG=1
 ```
