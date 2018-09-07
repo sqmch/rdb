@@ -79,6 +79,8 @@
       <!-- RESULTS TABLE-->
       <div class="md-layout-item md-size-66">
         <div class="md-layout-item">
+          <md-tabs class="md-primary" md-alignment="centered">
+          <md-tab id="tab-home" md-icon="table_chart">
           <md-table md-card v-model="commentdata">
             <md-table-empty-state md-label="Let's get started!"
                                   md-description="Select submissions and grab data."
@@ -87,12 +89,13 @@
 
             <!-- TITLE TOGGLE -->
             <md-table-toolbar>
-                            <md-button :disabled="this.commentdata.length <= 0">
+                            <md-button :disabled="this.commentdata.length <= 0"
+                                        class="md-primary">
                 <md-icon>save_alt</md-icon>
                 <download-csv
                   :data="commentdata"
                   name="submissionData.csv">
-                  Download Data
+                  CSV
                 </download-csv>
               </md-button>
 
@@ -108,34 +111,39 @@
               <md-table-cell md-label="Score">{{ item.score }}</md-table-cell>
             </md-table-row>
           </md-table>
-            <chartjs-line :data="polaritydata"
-                          :labels="polaritydatalabels"
-                          :bind="true"
-                          :height="50"
-                          :linetension="0"
-                          :datalabel="'Polarity'">
-            </chartjs-line>
-            <chartjs-line :data="subjectivitydata"
-                          :labels="subjectivitydatalabels"
-                          :bind="true"
-                          :height="50"
-                          :linetension="0"
-                          :datalabel="'Subjectivity'">
-            </chartjs-line>
-            <chartjs-line :data="commentamountdata"
-                          :labels="commentamountdatalabels"
-                          :bind="true"
-                          :height="50"
-                          :linetension="0"
-                          :datalabel="'Comment amount'">
-            </chartjs-line>
-            <chartjs-line :data="commentscoredata"
-                          :labels="commentscoredatalabels"
-                          :bind="true"
-                          :height="50"
-                          :linetension="0"
-                          :datalabel="'Score'">
-            </chartjs-line>
+          </md-tab>
+          <md-tab id="tab-pages" md-icon="show_chart">
+
+          <chartjs-line :data="polaritydata"
+                        :labels="polaritydatalabels"
+                        :bind="true"
+                        :height="50"
+                        :linetension="0"
+                        :datalabel="'Polarity'">
+          </chartjs-line>
+          <chartjs-line :data="subjectivitydata"
+                        :labels="subjectivitydatalabels"
+                        :bind="true"
+                        :height="50"
+                        :linetension="0"
+                        :datalabel="'Subjectivity'">
+          </chartjs-line>
+          <chartjs-line :data="commentamountdata"
+                        :labels="commentamountdatalabels"
+                        :bind="true"
+                        :height="50"
+                        :linetension="0"
+                        :datalabel="'Comment amount'">
+          </chartjs-line>
+          <chartjs-line :data="commentscoredata"
+                        :labels="commentscoredatalabels"
+                        :bind="true"
+                        :height="50"
+                        :linetension="0"
+                        :datalabel="'Score'">
+          </chartjs-line>
+          </md-tab>
+          </md-tabs>
         </div>
       </div>
 

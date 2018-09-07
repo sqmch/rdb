@@ -2,7 +2,8 @@
 
 ## Features
 
-- Update the charts to display more meaningful data
+- Expand the data gathering process to include more data
+- Update the charts to display more meaningful relationships in the data
 - Add historic data gathering (separate tab for displaying data that gets gathered regularly over time)
 
 ## Bugs
