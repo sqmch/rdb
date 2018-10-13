@@ -1,8 +1,9 @@
-# vue/flask implementation of rcdbot (some simpimport requests
+# vue/flask implementation of rcdbot
 import requests
 import json
 from flask import Flask, render_template, jsonify, request
 from rdb import Rdb
+import db
 
 
 app = Flask(__name__, static_folder="./dist/static", template_folder="./dist")
@@ -32,6 +33,12 @@ def process_selections():
 
     response_object = rdb.scan_submissions(idlist)
     return jsonify(response_object)
+
+
+@app.route("/api/historic_data", methods=["GET", "POST"])
+def historic_data():
+    response_data = db.grab_all()
+    return jsonify(response_data)
 
 
 @app.route("/", defaults={"path": ""})

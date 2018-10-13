@@ -89,8 +89,8 @@
 
             <!-- TITLE TOGGLE -->
             <md-table-toolbar>
-                            <md-button :disabled="this.commentdata.length <= 0"
-                                        class="md-primary">
+              <md-button :disabled="this.commentdata.length <= 0"
+                          class="md-primary">
                 <md-icon>save_alt</md-icon>
                 <download-csv
                   :data="commentdata"
@@ -142,6 +142,35 @@
                         :linetension="0"
                         :datalabel="'Score'">
           </chartjs-line>
+          </md-tab>
+          <md-tab>
+            <md-table md-card v-model="historic_data">
+              <md-table-empty-state md-label="Loading data..."
+                                    md-description="This may take a moment."
+                                    md-icon="library_books">
+              </md-table-empty-state>
+
+              <!-- TITLE TOGGLE -->
+              <md-table-toolbar>
+                <md-button :disabled="this.commentdata.length <= 0"
+                            class="md-primary">
+                  <md-icon>save_alt</md-icon>
+                  <download-csv
+                    :data="commentdata"
+                    name="submissionData.csv">
+                    CSV
+                  </download-csv>
+                </md-button>
+
+              </md-table-toolbar>
+
+              <!-- TABLE ROWS -->
+              <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }">
+                <md-table-cell md-label="ID">{{ item.id }}</md-table-cell>
+                <md-table-cell md-label="Average polarity ">{{ item.avg_title_polarity }}</md-table-cell>
+                <md-table-cell md-label="Average subjectivity">{{ item.avg_title_subjectivity }}</md-table-cell>
+              </md-table-row>
+            </md-table>
           </md-tab>
           </md-tabs>
         </div>
@@ -221,7 +250,8 @@ export default {
     commentamountdata: [],
     commentamountdatalabels: [],
     commentscoredata: [],
-    commentscoredatalabels: []
+    commentscoredatalabels: [],
+    historic_data: []
   }),
   methods: {
     onSelect (item) {
@@ -303,7 +333,7 @@ export default {
       axios
         .get(path)
         .then(response => {
-          var dataobj = JSON.parse(response.data)
+          var dataobj = response.data
           this.submissiondata = dataobj
           this.isLoading = false
           this.titleVisible = true
@@ -312,6 +342,16 @@ export default {
           console.log(error)
           this.isLoading = false
           this.titleVisible = true
+        })
+    },
+    historicData () {
+      const path = 'http://localhost:5000/api/historic_data'
+      axios
+        .get(path)
+        .then(response => {
+          var dataobj = JSON.parse(response.data)
+          this.historic_data = dataobj
+          console.log(this.historic_data)
         })
     },
     addData () {
@@ -330,6 +370,7 @@ export default {
   },
   created: function () {
     this.getSubsOnLoad()
+    this.historicData()
   }
 }
 
