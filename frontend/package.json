@@ -13,6 +13,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "chart.js": "^2.7.2",
+    "cryptiles": "^4.1.2",
     "hchs-vue-charts": "^1.2.8",
     "hoek": "^5.0.3",
     "node-sass": "^4.9.2",
