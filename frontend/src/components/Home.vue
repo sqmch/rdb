@@ -143,7 +143,7 @@
                         :datalabel="'Score'">
           </chartjs-line>
           </md-tab>
-          <md-tab>
+          <md-tab md-icon="history">
             <md-table md-card v-model="historic_data">
               <md-table-empty-state md-label="Loading data..."
                                     md-description="This may take a moment."
@@ -152,12 +152,12 @@
 
               <!-- TITLE TOGGLE -->
               <md-table-toolbar>
-                <md-button :disabled="this.commentdata.length <= 0"
+                <md-button :disabled="this.historic_data.length <= 0"
                             class="md-primary">
                   <md-icon>save_alt</md-icon>
                   <download-csv
-                    :data="commentdata"
-                    name="submissionData.csv">
+                    :data="historic_data"
+                    name="historicData.csv">
                     CSV
                   </download-csv>
                 </md-button>
@@ -333,7 +333,7 @@ export default {
       axios
         .get(path)
         .then(response => {
-          var dataobj = response.data
+          var dataobj = JSON.parse(response.data)
           this.submissiondata = dataobj
           this.isLoading = false
           this.titleVisible = true
@@ -369,8 +369,8 @@ export default {
     }
   },
   created: function () {
-    this.getSubsOnLoad()
     this.historicData()
+    this.getSubsOnLoad()
   }
 }
 
