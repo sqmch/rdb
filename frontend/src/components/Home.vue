@@ -143,6 +143,7 @@
                         :datalabel="'Score'">
           </chartjs-line>
           </md-tab>
+          <!-- HSTORIC DATA TAB -->
           <md-tab md-icon="history">
             <md-table md-card v-model="historic_data">
               <md-table-empty-state md-label="Loading data..."
@@ -171,6 +172,20 @@
                 <md-table-cell md-label="Average subjectivity">{{ item.avg_title_subjectivity }}</md-table-cell>
               </md-table-row>
             </md-table>
+            <chartjs-line :data="hpolaritydata"
+                          :labels="hpolaritydatalabels"
+                          :bind="true"
+                          :height="50"
+                          :linetension="0"
+                          :datalabel="'Average Polarity'">
+            </chartjs-line>
+            <chartjs-line :data="hsubjectivitydata"
+                          :labels="hsubjectivitydatalabels"
+                          :bind="true"
+                          :height="50"
+                          :linetension="0"
+                          :datalabel="'Average Subjectivity'">
+            </chartjs-line>
           </md-tab>
           </md-tabs>
         </div>
@@ -251,7 +266,11 @@ export default {
     commentamountdatalabels: [],
     commentscoredata: [],
     commentscoredatalabels: [],
-    historic_data: []
+    historic_data: [],
+    hpolaritydatalabels: [],
+    hpolaritydata: [],
+    hsubjectivitydata: [],
+    hsubjectivitydatalabels: []
   }),
   methods: {
     onSelect (item) {
@@ -351,14 +370,15 @@ export default {
         .then(response => {
           var dataobj = JSON.parse(response.data)
           this.historic_data = dataobj
-          console.log(this.historic_data)
+          this.hpolaritydatalabels = this.historic_data.map(a => a.id)
+          this.hpolaritydata = this.historic_data.map(a => a.avg_title_polarity)
+          this.hsubjectivitydatalabels = this.historic_data.map(a => a.id)
+          this.hsubjectivitydata = this.historic_data.map(a => a.avg_title_subjectivity)
         })
-    },
-    addData () {
-      this.polaritydata.push(this.commentdata.map(a => a.title_polarity))
-      this.subjectivitydata.push(this.commentdata.map(a => a.title_subjectivity))
-      this.commentamountdata.push(this.commentdata.map(a => a.cmnt_amt))
-      this.commentscoredata.push(this.commentdata.map(a => a.score))
+        .catch((error) => {
+        // eslint-disable-next-line
+          console.log(error)
+        })
     }
   },
   computed: {

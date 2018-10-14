@@ -10,7 +10,7 @@ from textblob import TextBlob
 reddit = praw.Reddit("bot1", user_agent="rdb - testing praw features")
 
 
-def get_submission_titles(subname="all", sortmode="top"):
+def get_submission_titles(subname="all", sortmode="hot"):
     """[Return 100 submissions from a specified subreddit + sort mode.]
 
     Keyword Arguments:

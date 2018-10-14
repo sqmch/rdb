@@ -39,10 +39,3 @@ def grab_all():
     json_data = json.dumps([dict(ix) for ix in data])
     return json_data
 
-
-def main():
-    pass
-
-
-if __name__ == "__main__":
-    main()
