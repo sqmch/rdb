@@ -145,9 +145,27 @@
           </md-tab>
           <!-- HSTORIC DATA TAB -->
           <md-tab md-icon="history">
+            <chartjs-line bordercolor="rgba(105,240,174,1)"
+                          backgroundcolor="rgba(105,240,174,1)"
+                          :data="hpolaritydata"
+                          :labels="hlabels"
+                          :bind="true"
+                          :height="50"
+                          :linetension="0"
+                          :datalabel="'Average Polarity'">
+            </chartjs-line>
+            <chartjs-line bordercolor="rgba(105,240,174,1)"
+                          backgroundcolor="rgba(105,240,174,1)"
+                          :data="hsubjectivitydata"
+                          :labels="hlabels"
+                          :bind="true"
+                          :height="50"
+                          :linetension="0"
+                          :datalabel="'Average Subjectivity'">
+            </chartjs-line>
             <md-table md-card v-model="historic_data">
-              <md-table-empty-state md-label="Loading data..."
-                                    md-description="This may take a moment."
+              <md-table-empty-state md-label="No data to load..."
+                                    md-description="Please try again later."
                                     md-icon="library_books">
               </md-table-empty-state>
 
@@ -167,25 +185,11 @@
 
               <!-- TABLE ROWS -->
               <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }">
-                <md-table-cell md-label="ID">{{ item.id }}</md-table-cell>
+                <md-table-cell md-label="Date">{{ item.fulldate }}</md-table-cell>
                 <md-table-cell md-label="Average polarity ">{{ item.avg_title_polarity }}</md-table-cell>
                 <md-table-cell md-label="Average subjectivity">{{ item.avg_title_subjectivity }}</md-table-cell>
               </md-table-row>
             </md-table>
-            <chartjs-line :data="hpolaritydata"
-                          :labels="hpolaritydatalabels"
-                          :bind="true"
-                          :height="50"
-                          :linetension="0"
-                          :datalabel="'Average Polarity'">
-            </chartjs-line>
-            <chartjs-line :data="hsubjectivitydata"
-                          :labels="hsubjectivitydatalabels"
-                          :bind="true"
-                          :height="50"
-                          :linetension="0"
-                          :datalabel="'Average Subjectivity'">
-            </chartjs-line>
           </md-tab>
           </md-tabs>
         </div>
@@ -244,8 +248,6 @@ export default {
   extends: Bar,
   name: 'Home',
   data: () => ({
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    dataset: [1511, 59, 2323, 8981, 56, -5585, -5566.5],
     searchphrase: '',
     sortmode: 'top',
     required: null,
@@ -267,10 +269,9 @@ export default {
     commentscoredata: [],
     commentscoredatalabels: [],
     historic_data: [],
-    hpolaritydatalabels: [],
+    hlabels: [],
     hpolaritydata: [],
-    hsubjectivitydata: [],
-    hsubjectivitydatalabels: []
+    hsubjectivitydata: []
   }),
   methods: {
     onSelect (item) {
@@ -370,9 +371,8 @@ export default {
         .then(response => {
           var dataobj = JSON.parse(response.data)
           this.historic_data = dataobj
-          this.hpolaritydatalabels = this.historic_data.map(a => a.id)
+          this.hlabels = this.historic_data.map(a => a.fulldate)
           this.hpolaritydata = this.historic_data.map(a => a.avg_title_polarity)
-          this.hsubjectivitydatalabels = this.historic_data.map(a => a.id)
           this.hsubjectivitydata = this.historic_data.map(a => a.avg_title_subjectivity)
         })
         .catch((error) => {

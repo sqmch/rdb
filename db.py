@@ -11,6 +11,7 @@ def create_table():
     cur = conn.cursor()
     cur.execute(
         """CREATE TABLE IF NOT EXISTS rdb (id SERIAL PRIMARY KEY,
+                                            fulldate TEXT,
                                             avg_title_polarity TEXT,
                                             avg_title_subjectivity TEXT)"""
     )
@@ -18,13 +19,13 @@ def create_table():
     conn.close()
 
 
-def insert(avg_title_polarity, avg_title_subjectivity):
+def insert(fulldate, avg_title_polarity, avg_title_subjectivity):
     conn_string = "dbname='rdbtest' user='postgres' password='teretere' host='localhost' port='5432'"
     conn = psycopg2.connect(conn_string)
     cur = conn.cursor()
     cur.execute(
-        "INSERT INTO rdb (avg_title_polarity, avg_title_subjectivity) VALUES(%s, %s)",
-        (avg_title_polarity, avg_title_subjectivity),
+        "INSERT INTO rdb (fulldate, avg_title_polarity, avg_title_subjectivity) VALUES(%s, %s, %s)",
+        (fulldate, avg_title_polarity, avg_title_subjectivity),
     )
     conn.commit()
     conn.close()

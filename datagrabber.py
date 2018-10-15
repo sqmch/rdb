@@ -29,7 +29,7 @@ def get_submission_titles(subname="all", sortmode="hot"):
     elif sortmode == "controversial":
         subreddit = reddit.subreddit(subname).controversial()
     else:
-        return {}
+        return []
 
     data = []
     for submission in subreddit:
@@ -51,15 +51,23 @@ def job(message="Gathering sentiment data..."):
         titlesubjectivity = TextBlob(i).sentiment.subjectivity
         subjectivity_values.append(titlesubjectivity)
 
+    date = time.strftime("%d/%m/%y %H:%M")
     avg_polarity = sum(polarity_values) / len(polarity_values)
     avg_subjectivity = sum(subjectivity_values) / len(subjectivity_values)
 
     db.create_table()
-    db.insert(avg_polarity, avg_subjectivity)
+    db.insert(date, avg_polarity, avg_subjectivity)
 
 
-schedule.every(2).minutes.do(job)
+mins = 60
+schedule.every(mins).minutes.do(job)
+print(f"+ Gathering data every {mins} minute(s)...")
+print("+ Ctrl-C to stop")
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+try:
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+except KeyboardInterrupt:
+    print("+ datagrabber STOPPED")
+    pass
