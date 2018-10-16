@@ -46,7 +46,7 @@
       <div class="md-layout-item">
         <md-table md-card v-model="submissiondata" @md-selected="onSelect">
           <md-table-empty-state md-label="No submissions found"
-                                md-description="Please search for a valid subreddit above."
+                                md-description="Please search for a valid subreddit."
                                 md-icon="mood_bad">
           </md-table-empty-state>
 
@@ -71,7 +71,7 @@
 
           <!-- TABLE ROWS -->
           <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }" md-selectable="multiple" md-auto-select>
-            <md-table-cell md-label="All">{{ item.title }}</md-table-cell>
+            <md-table-cell md-label="Submissions">{{ item.title }}</md-table-cell>
           </md-table-row>
         </md-table>
       </div>
@@ -81,102 +81,20 @@
         <div class="md-layout-item">
           <md-tabs class="md-primary" md-alignment="centered">
           <md-tab id="tab-home" md-icon="table_chart">
-          <md-table md-card v-model="commentdata">
-            <md-table-empty-state md-label="Let's get started!"
-                                  md-description="Select submissions and grab data."
-                                  md-icon="library_books">
-            </md-table-empty-state>
-
-            <!-- TITLE TOGGLE -->
-            <md-table-toolbar>
-              <md-button :disabled="this.commentdata.length <= 0"
-                          class="md-primary">
-                <md-icon>save_alt</md-icon>
-                <download-csv
-                  :data="commentdata"
-                  name="submissionData.csv">
-                  CSV
-                </download-csv>
-              </md-button>
-
-            </md-table-toolbar>
-
-            <!-- TABLE ROWS -->
-            <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }">
-              <md-table-cell md-label="ID">{{ item.id }}</md-table-cell>
-              <md-table-cell md-label="Title">{{ item.title }}</md-table-cell>
-              <md-table-cell md-label="Title Polarity">{{ item.title_polarity }}</md-table-cell>
-              <md-table-cell md-label="Title Subjectivity">{{ item.title_subjectivity }}</md-table-cell>
-              <md-table-cell md-label="Comment Amount">{{ item.cmnt_amt }}</md-table-cell>
-              <md-table-cell md-label="Score">{{ item.score }}</md-table-cell>
-            </md-table-row>
-          </md-table>
-          </md-tab>
-          <md-tab id="tab-pages" md-icon="show_chart">
-
-          <chartjs-line :data="polaritydata"
-                        :labels="polaritydatalabels"
-                        :bind="true"
-                        :height="50"
-                        :linetension="0"
-                        :datalabel="'Polarity'">
-          </chartjs-line>
-          <chartjs-line :data="subjectivitydata"
-                        :labels="subjectivitydatalabels"
-                        :bind="true"
-                        :height="50"
-                        :linetension="0"
-                        :datalabel="'Subjectivity'">
-          </chartjs-line>
-          <chartjs-line :data="commentamountdata"
-                        :labels="commentamountdatalabels"
-                        :bind="true"
-                        :height="50"
-                        :linetension="0"
-                        :datalabel="'Comment amount'">
-          </chartjs-line>
-          <chartjs-line :data="commentscoredata"
-                        :labels="commentscoredatalabels"
-                        :bind="true"
-                        :height="50"
-                        :linetension="0"
-                        :datalabel="'Score'">
-          </chartjs-line>
-          </md-tab>
-          <!-- HSTORIC DATA TAB -->
-          <md-tab md-icon="history">
-            <chartjs-line bordercolor="rgba(105,240,174,1)"
-                          backgroundcolor="rgba(105,240,174,1)"
-                          :data="hpolaritydata"
-                          :labels="hlabels"
-                          :bind="true"
-                          :height="50"
-                          :linetension="0"
-                          :datalabel="'Average Polarity'">
-            </chartjs-line>
-            <chartjs-line bordercolor="rgba(105,240,174,1)"
-                          backgroundcolor="rgba(105,240,174,1)"
-                          :data="hsubjectivitydata"
-                          :labels="hlabels"
-                          :bind="true"
-                          :height="50"
-                          :linetension="0"
-                          :datalabel="'Average Subjectivity'">
-            </chartjs-line>
-            <md-table md-card v-model="historic_data">
-              <md-table-empty-state md-label="No data to load..."
-                                    md-description="Please try again later."
+            <md-table md-card v-model="commentdata">
+              <md-table-empty-state md-label="Let's get started!"
+                                    md-description="Select submissions and press Grab Data."
                                     md-icon="library_books">
               </md-table-empty-state>
 
               <!-- TITLE TOGGLE -->
               <md-table-toolbar>
-                <md-button :disabled="this.historic_data.length <= 0"
+                <md-button :disabled="this.commentdata.length <= 0"
                             class="md-primary">
                   <md-icon>save_alt</md-icon>
                   <download-csv
-                    :data="historic_data"
-                    name="historicData.csv">
+                    :data="commentdata"
+                    name="submissionData.csv">
                     CSV
                   </download-csv>
                 </md-button>
@@ -185,11 +103,53 @@
 
               <!-- TABLE ROWS -->
               <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }">
-                <md-table-cell md-label="Date">{{ item.fulldate }}</md-table-cell>
-                <md-table-cell md-label="Average polarity ">{{ item.avg_title_polarity }}</md-table-cell>
-                <md-table-cell md-label="Average subjectivity">{{ item.avg_title_subjectivity }}</md-table-cell>
+                <md-table-cell md-label="ID">{{ item.id }}</md-table-cell>
+                <md-table-cell md-label="Title">{{ item.title }}</md-table-cell>
+                <md-table-cell md-label="Title Polarity">{{ item.title_polarity }}</md-table-cell>
+                <md-table-cell md-label="Title Subjectivity">{{ item.title_subjectivity }}</md-table-cell>
+                <md-table-cell md-label="Comment Amount">{{ item.cmnt_amt }}</md-table-cell>
+                <md-table-cell md-label="Score">{{ item.score }}</md-table-cell>
               </md-table-row>
             </md-table>
+          </md-tab>
+          <md-tab id="tab-pages" md-icon="show_chart">
+
+          <chartjs-line bordercolor="rgba(105,240,174,1)"
+                        backgroundcolor="rgba(105,240,174,1)"
+                        :data="polaritydata"
+                        :labels="polaritydatalabels"
+                        :bind="true"
+                        :height="50"
+                        :linetension="0"
+                        :datalabel="'Polarity'">
+          </chartjs-line>
+          <chartjs-line bordercolor="rgba(105,240,174,1)"
+                        backgroundcolor="rgba(105,240,174,1)"
+                        :data="subjectivitydata"
+                        :labels="subjectivitydatalabels"
+                        :bind="true"
+                        :height="50"
+                        :linetension="0"
+                        :datalabel="'Subjectivity'">
+          </chartjs-line>
+          <chartjs-line bordercolor="rgba(105,240,174,1)"
+                        backgroundcolor="rgba(105,240,174,1)"
+                        :data="commentamountdata"
+                        :labels="commentamountdatalabels"
+                        :bind="true"
+                        :height="50"
+                        :linetension="0"
+                        :datalabel="'Comment amount'">
+          </chartjs-line>
+          <chartjs-line bordercolor="rgba(105,240,174,1)"
+                        backgroundcolor="rgba(105,240,174,1)"
+                        :data="commentscoredata"
+                        :labels="commentscoredatalabels"
+                        :bind="true"
+                        :height="50"
+                        :linetension="0"
+                        :datalabel="'Score'">
+          </chartjs-line>
           </md-tab>
           </md-tabs>
         </div>
@@ -267,11 +227,7 @@ export default {
     commentamountdata: [],
     commentamountdatalabels: [],
     commentscoredata: [],
-    commentscoredatalabels: [],
-    historic_data: [],
-    hlabels: [],
-    hpolaritydata: [],
-    hsubjectivitydata: []
+    commentscoredatalabels: []
   }),
   methods: {
     onSelect (item) {
@@ -363,22 +319,6 @@ export default {
           this.isLoading = false
           this.titleVisible = true
         })
-    },
-    historicData () {
-      const path = 'http://localhost:5000/api/historic_data'
-      axios
-        .get(path)
-        .then(response => {
-          var dataobj = JSON.parse(response.data)
-          this.historic_data = dataobj
-          this.hlabels = this.historic_data.map(a => a.fulldate)
-          this.hpolaritydata = this.historic_data.map(a => a.avg_title_polarity)
-          this.hsubjectivitydata = this.historic_data.map(a => a.avg_title_subjectivity)
-        })
-        .catch((error) => {
-        // eslint-disable-next-line
-          console.log(error)
-        })
     }
   },
   computed: {
@@ -389,7 +329,6 @@ export default {
     }
   },
   created: function () {
-    this.historicData()
     this.getSubsOnLoad()
   }
 }
