@@ -140,7 +140,7 @@
                         :height="50"
                         :linetension="0"
                         :datalabel="'Comment amount'">
-          </chartjs-line>
+          </chartjs-line> 
           <chartjs-line bordercolor="rgba(105,240,174,1)"
                         backgroundcolor="rgba(105,240,174,1)"
                         :data="commentscoredata"
@@ -219,7 +219,6 @@ export default {
     selected: {},
     menuVisible: false,
     hasMessages: false,
-    selObjects: {},
     polaritydata: [],
     polaritydatalabels: [],
     subjectivitydata: [],
