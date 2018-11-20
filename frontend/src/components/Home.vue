@@ -46,7 +46,7 @@
       <div class="md-layout-item">
         <md-table md-card v-model="submissiondata" @md-selected="onSelect">
           <md-table-empty-state md-label="No submissions found"
-                                md-description="Please search for a valid subreddit above."
+                                md-description="Please search for a valid subreddit."
                                 md-icon="mood_bad">
           </md-table-empty-state>
 
@@ -71,7 +71,7 @@
 
           <!-- TABLE ROWS -->
           <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }" md-selectable="multiple" md-auto-select>
-            <md-table-cell md-label="All">{{ item.title }}</md-table-cell>
+            <md-table-cell md-label="Submissions">{{ item.title }}</md-table-cell>
           </md-table-row>
         </md-table>
       </div>
@@ -81,61 +81,69 @@
         <div class="md-layout-item">
           <md-tabs class="md-primary" md-alignment="centered">
           <md-tab id="tab-home" md-icon="table_chart">
-          <md-table md-card v-model="commentdata">
-            <md-table-empty-state md-label="Let's get started!"
-                                  md-description="Select submissions and grab data."
-                                  md-icon="library_books">
-            </md-table-empty-state>
+            <md-table md-card v-model="commentdata">
+              <md-table-empty-state md-label="Let's get started!"
+                                    md-description="Select submissions and press Grab Data."
+                                    md-icon="library_books">
+              </md-table-empty-state>
 
-            <!-- TITLE TOGGLE -->
-            <md-table-toolbar>
-                            <md-button :disabled="this.commentdata.length <= 0"
-                                        class="md-primary">
-                <md-icon>save_alt</md-icon>
-                <download-csv
-                  :data="commentdata"
-                  name="submissionData.csv">
-                  CSV
-                </download-csv>
-              </md-button>
+              <!-- TITLE TOGGLE -->
+              <md-table-toolbar>
+                <md-button :disabled="this.commentdata.length <= 0"
+                            class="md-primary">
+                  <md-icon>save_alt</md-icon>
+                  <download-csv
+                    :data="commentdata"
+                    name="submissionData.csv">
+                    CSV
+                  </download-csv>
+                </md-button>
 
-            </md-table-toolbar>
+              </md-table-toolbar>
 
-            <!-- TABLE ROWS -->
-            <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }">
-              <md-table-cell md-label="ID">{{ item.id }}</md-table-cell>
-              <md-table-cell md-label="Title">{{ item.title }}</md-table-cell>
-              <md-table-cell md-label="Title Polarity">{{ item.title_polarity }}</md-table-cell>
-              <md-table-cell md-label="Title Subjectivity">{{ item.title_subjectivity }}</md-table-cell>
-              <md-table-cell md-label="Comment Amount">{{ item.cmnt_amt }}</md-table-cell>
-              <md-table-cell md-label="Score">{{ item.score }}</md-table-cell>
-            </md-table-row>
-          </md-table>
+              <!-- TABLE ROWS -->
+              <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }">
+                <md-table-cell md-label="ID">{{ item.id }}</md-table-cell>
+                <md-table-cell md-label="Title">{{ item.title }}</md-table-cell>
+                <md-table-cell md-label="Title Polarity">{{ item.title_polarity }}</md-table-cell>
+                <md-table-cell md-label="Title Subjectivity">{{ item.title_subjectivity }}</md-table-cell>
+                <md-table-cell md-label="Comment Amount">{{ item.cmnt_amt }}</md-table-cell>
+                <md-table-cell md-label="Score">{{ item.score }}</md-table-cell>
+              </md-table-row>
+            </md-table>
           </md-tab>
           <md-tab id="tab-pages" md-icon="show_chart">
 
-          <chartjs-line :data="polaritydata"
+          <chartjs-line bordercolor="rgba(105,240,174,1)"
+                        backgroundcolor="rgba(105,240,174,1)"
+                        :data="polaritydata"
                         :labels="polaritydatalabels"
                         :bind="true"
                         :height="50"
                         :linetension="0"
                         :datalabel="'Polarity'">
           </chartjs-line>
-          <chartjs-line :data="subjectivitydata"
+          <chartjs-line bordercolor="rgba(105,240,174,1)"
+                        backgroundcolor="rgba(105,240,174,1)"
+                        :data="subjectivitydata"
                         :labels="subjectivitydatalabels"
                         :bind="true"
                         :height="50"
                         :linetension="0"
                         :datalabel="'Subjectivity'">
           </chartjs-line>
-          <chartjs-line :data="commentamountdata"
+          <chartjs-line bordercolor="rgba(105,240,174,1)"
+                        backgroundcolor="rgba(105,240,174,1)"
+                        :data="commentamountdata"
                         :labels="commentamountdatalabels"
                         :bind="true"
                         :height="50"
                         :linetension="0"
                         :datalabel="'Comment amount'">
-          </chartjs-line>
-          <chartjs-line :data="commentscoredata"
+          </chartjs-line> 
+          <chartjs-line bordercolor="rgba(105,240,174,1)"
+                        backgroundcolor="rgba(105,240,174,1)"
+                        :data="commentscoredata"
                         :labels="commentscoredatalabels"
                         :bind="true"
                         :height="50"
@@ -200,8 +208,6 @@ export default {
   extends: Bar,
   name: 'Home',
   data: () => ({
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    dataset: [1511, 59, 2323, 8981, 56, -5585, -5566.5],
     searchphrase: '',
     sortmode: 'top',
     required: null,
@@ -213,7 +219,6 @@ export default {
     selected: {},
     menuVisible: false,
     hasMessages: false,
-    selObjects: {},
     polaritydata: [],
     polaritydatalabels: [],
     subjectivitydata: [],
@@ -313,12 +318,6 @@ export default {
           this.isLoading = false
           this.titleVisible = true
         })
-    },
-    addData () {
-      this.polaritydata.push(this.commentdata.map(a => a.title_polarity))
-      this.subjectivitydata.push(this.commentdata.map(a => a.title_subjectivity))
-      this.commentamountdata.push(this.commentdata.map(a => a.cmnt_amt))
-      this.commentscoredata.push(this.commentdata.map(a => a.score))
     }
   },
   computed: {

@@ -34,7 +34,7 @@
             </md-tab>
 
             <!-- MISC-->
-            <md-tab id="tab-misc" md-label="Misc" to="/misc">
+            <md-tab id="tab-histstats" md-label="Stats" to="/stats">
               <div class="md-layout-item">
                 <router-view/>
               </div>
@@ -72,6 +72,7 @@
 <script>
 import Misc from './components/Misc.vue'
 import Home from './components/Home.vue'
+import Histstats from './components/Histstats.vue'
 
 export default {
   name: 'App',
@@ -80,13 +81,28 @@ export default {
   }),
   components: {
     Misc,
-    Home
+    Home,
+    Histstats
   }
 }
 
 </script>
 
 <style lang="scss">
+@import "~vue-material/dist/theme/engine";
+
+@include md-register-theme(
+	"default",
+	(
+		primary: md-get-palette-color(green, A200),
+		// The primary color of your application
+			accent: md-get-palette-color(red, A200),
+		// The accent or secondary color
+			theme: dark// This can be dark or light
+	)
+);
+
+@import "~vue-material/dist/theme/all";
 #app {
 	height: 100vh;
 	font-family: Roboto, sans-serif;

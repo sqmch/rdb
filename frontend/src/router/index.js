@@ -21,7 +21,7 @@ const routerOptions = [{
 },
 {
   path: '/stats',
-  component: 'Stats'
+  component: 'Histstats'
 }
 ]
 
