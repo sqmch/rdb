@@ -1,7 +1,9 @@
 # rdb - Vue.js GUI for pulling data from reddit using praw (WIP)
 
+#### Demo: https://rdb.netlify.com/
+
 - backend: Flask
-- frontend: Vue.js with vue-material
+- frontend: Vue.js
 
 ##### This project is an exploration of Vue and python for learning purposes. The idea was born from interest in creating modern web-based GUI-s for python scripts. The chosen implementation of that idea was to create a platform for exploring reddit data using it's API.
 
