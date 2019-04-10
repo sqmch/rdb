@@ -30,6 +30,8 @@ username=YOURUSERNAME
 - update praw.ini with the new details and save
 - The name in brackets on the first line ('bot1' by default) has to match the argument passed to praw.Reddit in rdb.py
 
+Note: in production or other scenarios outside local development/testing, use environment variables to avoid exposing the above information to the outside world.
+
 ### Make a virtual env and install dependencies
 
 ```
