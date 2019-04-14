@@ -23,11 +23,12 @@
             <!-- SEARCH BUTTON -->
             <md-card-actions md-alignment="left">
               <div class="searchbut">
-                <md-button v-on:click="getSubs()"
-                           class="md-raised md-primary"
-                           :disabled="this.radio == true || this.searchphrase.length <= 0">
-                           <md-icon md-alignment-top-center>search</md-icon>
-                           Search
+                <md-button
+                  v-on:click="getSubs()"
+                  class="md-raised md-primary"
+                  :disabled="this.radio == true || this.searchphrase.length <= 0"
+                >
+                  <md-icon md-alignment-top-center>search</md-icon>Search
                 </md-button>
               </div>
             </md-card-actions>
@@ -45,32 +46,37 @@
       <!-- DATA TABLE -->
       <div class="md-layout-item">
         <md-table md-card v-model="submissiondata" @md-selected="onSelect">
-          <md-table-empty-state md-label="No submissions found"
-                                md-description="Please search for a valid subreddit."
-                                md-icon="mood_bad">
-          </md-table-empty-state>
+          <md-table-empty-state
+            md-label="No submissions found"
+            md-description="Please search for a valid subreddit."
+            md-icon="mood_bad"
+          ></md-table-empty-state>
 
           <!-- TITLE TOGGLE -->
           <md-table-toolbar>
-            <transition name="fade"><h2 v-if="titleVisible" class="md-title">Submissions</h2>
+            <transition name="fade">
+              <h2 v-if="titleVisible" class="md-title">Submissions</h2>
             </transition>
           </md-table-toolbar>
 
           <!-- SELECTED ITEM COUNTER BARS -->
           <md-table-toolbar slot="md-table-alternate-header" slot-scope="{ count }">
             <div class="md-toolbar-section-start">
-              <md-button class="md-raised md-primary"
-                         v-on:click="processSelection()">
-                <md-icon md-alignment-top-center md-size-2x>library_add</md-icon>
-                Grab data
+              <md-button class="md-raised md-primary" v-on:click="processSelection()">
+                <md-icon md-alignment-top-center md-size-2x>library_add</md-icon>Grab data
               </md-button>
-            <div class="tete md-toolbar-section-beginning">{{ getAlternateLabel(count) }}</div>
-
+              <div class="tete md-toolbar-section-beginning">{{ getAlternateLabel(count) }}</div>
             </div>
           </md-table-toolbar>
 
           <!-- TABLE ROWS -->
-          <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }" md-selectable="multiple" md-auto-select>
+          <md-table-row
+            class="tabrow"
+            slot="md-table-row"
+            slot-scope="{ item }"
+            md-selectable="multiple"
+            md-auto-select
+          >
             <md-table-cell md-label="Submissions">{{ item.title }}</md-table-cell>
           </md-table-row>
         </md-table>
@@ -80,129 +86,126 @@
       <div class="md-layout-item md-size-66">
         <div class="md-layout-item">
           <md-tabs class="md-primary" md-alignment="centered">
-          <md-tab id="tab-home" md-icon="table_chart">
-            <md-table md-card v-model="commentdata">
-              <md-table-empty-state md-label="Let's get started!"
-                                    md-description="Select submissions and press Grab Data."
-                                    md-icon="library_books">
-              </md-table-empty-state>
+            <md-tab id="tab-home" md-icon="table_chart">
+              <md-table md-card v-model="commentdata">
+                <md-table-empty-state
+                  md-label="Let's get started!"
+                  md-description="Select submissions and press Grab Data."
+                  md-icon="library_books"
+                ></md-table-empty-state>
 
-              <!-- TITLE TOGGLE -->
-              <md-table-toolbar>
-                <md-button :disabled="this.commentdata.length <= 0"
-                            class="md-primary">
-                  <md-icon>save_alt</md-icon>
-                  <download-csv
-                    :data="commentdata"
-                    name="submissionData.csv">
-                    CSV
-                  </download-csv>
-                </md-button>
+                <!-- TITLE TOGGLE -->
+                <md-table-toolbar>
+                  <md-button :disabled="this.commentdata.length <= 0" class="md-primary">
+                    <md-icon>save_alt</md-icon>
+                    <download-csv :data="commentdata" name="submissionData.csv">CSV</download-csv>
+                  </md-button>
+                </md-table-toolbar>
 
-              </md-table-toolbar>
-
-              <!-- TABLE ROWS -->
-              <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }">
-                <md-table-cell md-label="ID">{{ item.id }}</md-table-cell>
-                <md-table-cell md-label="Title">{{ item.title }}</md-table-cell>
-                <md-table-cell md-label="Title Polarity">{{ item.title_polarity }}</md-table-cell>
-                <md-table-cell md-label="Title Subjectivity">{{ item.title_subjectivity }}</md-table-cell>
-                <md-table-cell md-label="Comment Amount">{{ item.cmnt_amt }}</md-table-cell>
-                <md-table-cell md-label="Score">{{ item.score }}</md-table-cell>
-              </md-table-row>
-            </md-table>
-          </md-tab>
-          <md-tab id="tab-pages" md-icon="show_chart">
-
-          <chartjs-line bordercolor="rgba(105,240,174,1)"
-                        backgroundcolor="rgba(105,240,174,1)"
-                        :data="polaritydata"
-                        :labels="polaritydatalabels"
-                        :bind="true"
-                        :height="50"
-                        :linetension="0"
-                        :datalabel="'Polarity'">
-          </chartjs-line>
-          <chartjs-line bordercolor="rgba(105,240,174,1)"
-                        backgroundcolor="rgba(105,240,174,1)"
-                        :data="subjectivitydata"
-                        :labels="subjectivitydatalabels"
-                        :bind="true"
-                        :height="50"
-                        :linetension="0"
-                        :datalabel="'Subjectivity'">
-          </chartjs-line>
-          <chartjs-line bordercolor="rgba(105,240,174,1)"
-                        backgroundcolor="rgba(105,240,174,1)"
-                        :data="commentamountdata"
-                        :labels="commentamountdatalabels"
-                        :bind="true"
-                        :height="50"
-                        :linetension="0"
-                        :datalabel="'Comment amount'">
-          </chartjs-line> 
-          <chartjs-line bordercolor="rgba(105,240,174,1)"
-                        backgroundcolor="rgba(105,240,174,1)"
-                        :data="commentscoredata"
-                        :labels="commentscoredatalabels"
-                        :bind="true"
-                        :height="50"
-                        :linetension="0"
-                        :datalabel="'Score'">
-          </chartjs-line>
-          </md-tab>
+                <!-- TABLE ROWS -->
+                <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }">
+                  <md-table-cell md-label="ID">{{ item.id }}</md-table-cell>
+                  <md-table-cell md-label="Title">{{ item.title }}</md-table-cell>
+                  <md-table-cell md-label="Title Polarity">{{ item.title_polarity }}</md-table-cell>
+                  <md-table-cell md-label="Title Subjectivity">{{ item.title_subjectivity }}</md-table-cell>
+                  <md-table-cell md-label="Comment Amount">{{ item.cmnt_amt }}</md-table-cell>
+                  <md-table-cell md-label="Score">{{ item.score }}</md-table-cell>
+                </md-table-row>
+              </md-table>
+            </md-tab>
+            <md-tab id="tab-pages" md-icon="show_chart">
+              <chartjs-line
+                bordercolor="rgba(144,202,249,1)"
+                backgroundcolor="rgba(144,202,249,1)"
+                :data="polaritydata"
+                :labels="polaritydatalabels"
+                :bind="true"
+                :height="50"
+                :linetension="0"
+                :datalabel="'Polarity'"
+              ></chartjs-line>
+              <chartjs-line
+                bordercolor="rgba(144,202,249,1)"
+                backgroundcolor="rgba(144,202,249,1)"
+                :data="subjectivitydata"
+                :labels="subjectivitydatalabels"
+                :bind="true"
+                :height="50"
+                :linetension="0"
+                :datalabel="'Subjectivity'"
+              ></chartjs-line>
+              <chartjs-line
+                bordercolor="rgba(144,202,249,1)"
+                backgroundcolor="rgba(144,202,249,1)"
+                :data="commentamountdata"
+                :labels="commentamountdatalabels"
+                :bind="true"
+                :height="50"
+                :linetension="0"
+                :datalabel="'Comment amount'"
+              ></chartjs-line>
+              <chartjs-line
+                bordercolor="rgba(144,202,249,1)"
+                backgroundcolor="rgba(144,202,249,1)"
+                :data="commentscoredata"
+                :labels="commentscoredatalabels"
+                :bind="true"
+                :height="50"
+                :linetension="0"
+                :datalabel="'Score'"
+              ></chartjs-line>
+            </md-tab>
           </md-tabs>
         </div>
       </div>
-
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .tete {
-	text-align: left;
+  text-align: left;
 }
 .prbar {
-	margin-top: 12px;
-	margin-bottom: 12px;
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
 .searchbut {
-	text-align: left;
+  text-align: left;
 }
 .tabrow {
-	text-align: left;
+  text-align: left;
 }
 .fade-enter-active,
 .fade-leave-active {
-	transition: opacity 1.5s ease-out;
+  transition: opacity 1.5s ease-out;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-	opacity: 0;
+  opacity: 0;
 }
 .md-radio {
-	display: flex;
+  display: flex;
 }
 .searchfield {
-	//max-width: 300px;
+  //max-width: 300px;
 }
 .md-app {
-	border: 1px solid rgba(#000, 0.12);
+  border: 1px solid rgba(#000, 0.12);
 }
 .md-table + .md-table {
-	margin-top: 8px;
+  margin-top: 8px;
 }
 
 // Demo purposes only
 .md-drawer {
-	width: 230px;
-	max-width: calc(100vw - 125px);
+  width: 230px;
+  max-width: calc(100vw - 125px);
 }
 </style>
 
 <script>
-import axios from 'axios'
-import {Bar} from 'vue-chartjs'
+import axios from 'axios';
+import { Bar } from 'vue-chartjs';
 
 export default {
   extends: Bar,
@@ -233,10 +236,10 @@ export default {
       this.selected = item
     },
     getAlternateLabel (count) {
-      let plural = ''
+      let plural = '';
 
       if (count > 1) {
-        plural = 's'
+        plural = 's';
       }
 
       return `${count} submission${plural} selected`
@@ -248,7 +251,7 @@ export default {
       this.selected.length = 0
       this.submissiondata.length = 0
       this.isLoading = true
-      const path = 'http://localhost:5000/api/submissions'
+      const path = 'http://localhost:5000/api/submissions';
       axios
         .get(path, {
           params: {
@@ -270,13 +273,12 @@ export default {
     },
     processSelection () {
       this.isLoading = true
-      const path = 'http://localhost:5000/api/process_selections'
+      const path = 'http://localhost:5000/api/process_selections';
       var selctd = this.selected.map(entry => entry.id)
 
       axios
         .get(path, {
           params: selctd
-
         })
         .then(response => {
           var selobj = JSON.parse(response.data)
@@ -284,7 +286,9 @@ export default {
           this.polaritydatalabels = this.commentdata.map(a => a.id)
           this.polaritydata = this.commentdata.map(a => a.title_polarity)
           this.subjectivitydatalabels = this.commentdata.map(a => a.id)
-          this.subjectivitydata = this.commentdata.map(a => a.title_subjectivity)
+          this.subjectivitydata = this.commentdata.map(
+            a => a.title_subjectivity
+          )
           this.commentamountdata = this.commentdata.map(a => a.cmnt_amt)
           this.commentamountdatalabels = this.commentdata.map(a => a.id)
           this.commentscoredata = this.commentdata.map(a => a.score)
@@ -294,9 +298,9 @@ export default {
           console.log('polaritydata =' + this.polaritydata)
           console.log('polaritydatalabels =' + this.polaritydatalabels)
         })
-        .catch((error) => {
-        // eslint-disable-next-line
-          console.log(error)
+        .catch(error => {
+          // eslint-disable-next-line
+          console.log(error);
           this.isLoading = false
         })
     },
@@ -304,7 +308,7 @@ export default {
       this.selected.length = 0
       this.submissiondata.length = 0
       this.isLoading = true
-      const path = 'http://localhost:5000/api/submissions'
+      const path = 'http://localhost:5000/api/submissions';
       axios
         .get(path)
         .then(response => {
@@ -331,5 +335,4 @@ export default {
     this.getSubsOnLoad()
   }
 }
-
 </script>
