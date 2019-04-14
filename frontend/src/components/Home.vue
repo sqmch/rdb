@@ -102,6 +102,7 @@
                   </md-button>
                 </md-table-toolbar>
 
+<<<<<<< HEAD
                 <!-- TABLE ROWS -->
                 <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }">
                   <md-table-cell md-label="ID">{{ item.id }}</md-table-cell>
@@ -155,6 +156,58 @@
                 :datalabel="'Score'"
               ></chartjs-line>
             </md-tab>
+=======
+              <!-- TABLE ROWS -->
+              <md-table-row class="tabrow" slot="md-table-row" slot-scope="{ item }">
+                <md-table-cell md-label="ID">{{ item.id }}</md-table-cell>
+                <md-table-cell md-label="Title">{{ item.title }}</md-table-cell>
+                <md-table-cell md-label="Title Polarity">{{ item.title_polarity }}</md-table-cell>
+                <md-table-cell md-label="Title Subjectivity">{{ item.title_subjectivity }}</md-table-cell>
+                <md-table-cell md-label="Comment Amount">{{ item.cmnt_amt }}</md-table-cell>
+                <md-table-cell md-label="Score">{{ item.score }}</md-table-cell>
+              </md-table-row>
+            </md-table>
+          </md-tab>
+          <md-tab id="tab-pages" md-icon="show_chart">
+
+          <chartjs-line bordercolor="rgba(105,240,174,1)"
+                        backgroundcolor="rgba(105,240,174,1)"
+                        :data="polaritydata"
+                        :labels="polaritydatalabels"
+                        :bind="true"
+                        :height="50"
+                        :linetension="0"
+                        :datalabel="'Polarity'">
+          </chartjs-line>
+          <chartjs-line bordercolor="rgba(105,240,174,1)"
+                        backgroundcolor="rgba(105,240,174,1)"
+                        :data="subjectivitydata"
+                        :labels="subjectivitydatalabels"
+                        :bind="true"
+                        :height="50"
+                        :linetension="0"
+                        :datalabel="'Subjectivity'">
+          </chartjs-line>
+          <chartjs-line bordercolor="rgba(105,240,174,1)"
+                        backgroundcolor="rgba(105,240,174,1)"
+                        :data="commentamountdata"
+                        :labels="commentamountdatalabels"
+                        :bind="true"
+                        :height="50"
+                        :linetension="0"
+                        :datalabel="'Comment amount'">
+          </chartjs-line>
+          <chartjs-line bordercolor="rgba(105,240,174,1)"
+                        backgroundcolor="rgba(105,240,174,1)"
+                        :data="commentscoredata"
+                        :labels="commentscoredatalabels"
+                        :bind="true"
+                        :height="50"
+                        :linetension="0"
+                        :datalabel="'Score'">
+          </chartjs-line>
+          </md-tab>
+>>>>>>> 9422f44b1da207ed5c21cd33620e93dbd8634e0c
           </md-tabs>
         </div>
       </div>
